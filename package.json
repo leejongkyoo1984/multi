@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "honkit": "^3.6.17"
+  },
+  "dependencies": {
+    "honkit-plugin-toggle-chapters": "0.0.1"
   }
 }
