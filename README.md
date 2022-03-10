@@ -1,5 +1,6 @@
-# 勉強
+# 効果的なGoプログラミング
 
 
-* [go1](./go2/summary.md)
-* [go2](./go2/summary.md)
+> [Effective Go](https://golang.org/doc/effective_go.html) 日本語翻訳文書です。
+
+ [目次](summary.md) をご覧ください。
