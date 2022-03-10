@@ -2,5 +2,10 @@
   "root": "./",
   "title": "ドキュメントを GitHub Pages に公開する",
   "author": "leejongkyoo",
-  "language": "ja"
+  "language": "ja",
+  "plugins": ["toggle-chapters"],
+  "pluginsConfig": {
+		"toggle-chapters":{}
+	}
+
 }
