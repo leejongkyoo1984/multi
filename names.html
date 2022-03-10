@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · ドキュメントを GitHub Pages に公開する</title>
+        <title>名称 · ドキュメントを GitHub Pages に公開する</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="introduction.html" />
+    <link rel="next" href="semicolons.html" />
     
+    
+    <link rel="prev" href="commentary.html" />
     
 
     </head>
@@ -90,7 +92,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -193,7 +195,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="names.html">
+        <li class="chapter active" data-level="1.5" data-path="names.html">
             
                 <a href="names.html">
             
@@ -998,7 +1000,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >名称</a>
     </h1>
 </div>
 
@@ -1013,11 +1015,28 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="効果的なgoプログラミング">効果的なGoプログラミング</h1>
-<blockquote>
-<p><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a> 日本語翻訳文書です。</p>
-</blockquote>
-<p> <a href="summary.md">目次</a> をご覧ください。</p>
+                                <h1 id="名称">名称</h1>
+<p>他の言語と同様に、Goでも名前は重要です。これも意味に影響を与える可能性があります。名前の最初の文字が大文字であるかどうかによって、名前のパッケージ外での露出可否が決まる。したがって、Goのネーミングルールを見る必要があります。</p>
+<h2 id="パッケージ名">パッケージ名</h2>
+<p>パッケージがインポートされると、パッケージ名はパッケージの内容へのアクセス者になります。次のようにすると</p>
+<pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;bytes&quot;</span>
+</code></pre>
+<p>インポートしたパッケージは <code>bytes.Buffer</code> を使うことができる。パッケージを使用するすべての人がパッケージの内容を参照するために同じ名前を使用できるということは、パッケージ名をよく作成しなければならない（短く、簡潔で、思いやりやすい）ことを意味します。慣例的に、パッケージ名は小文字、一単語でのみ付与し、アンダーバー（_）や大小文字混用の必要はありません。これは簡潔さに取り組んでいます。パッケージを使用するすべての人がパッケージ名を直接入力するからです（利便性）。そして衝突の心配はしないでください。パッケージ名はインポートのみの名前です。これはすべてのソースコードで一意である必要はなく、まれにインポートするパッケージがクラッシュしたときにローカルに異なる名前を選択することができます。いずれにせよ、インポートにあるファイル名が使用されるパッケージ名をすぐに決めるため、混乱はまれです。</p>
+<p>別の規則は、パッケージ名はソースディレクトリ名ベースであるということです。 <code>src/encoding/base64</code>のパッケージは <code>encoding/base64</code>にインポートされます。 <code>base64</code>という名前を持っていますが、<code>encoding_base64</code>や<code>encodingBase64</code>を書きません。</p>
+<p>パッケージをインポートするという点では、パッケージの内容を参照するためにパッケージ名を使用するので、パッケージから公開されている名前は名前の汚れを避けるためにこの事実を利用することができます。 （ <code>import .</code>表現を使用しないでください。これは、テストを実行しているパッケージの外部で本質的に実行する必要があるテストを単純化することができますが、そうでない場合は避けるべきです）。バッファリーダーは <code>BufReader</code>ではなく <code>Reader</code>と呼ばれます。なぜなら、ユーザーはこれを <code>bufio.Reader</code>と見なすでしょう。さらに、インポートされたオブジェクトは常にパッケージ名と呼ばれるため、 <code>bufio.Reader</code>は <code>io.Reader</code>と競合しません。同様に、Goに存在する <code>ring.Ring</code>という構造体のインスタンスを作成する関数は通常は <code>NewRing</code>と呼ばれるが、 <code>Ring</code>はパッケージ外に露出された唯一の型であり、パッケージが <code>ring</code>と呼ばれるため、この関数は単に <code>New</code>と呼び、 <code>ring.New</code>のように使用します。良い名前のためにこれらのパッケージ構造を活用してください。</p>
+<p>もう一つの簡単な例は <code>once.Do</code>です。 <code>once.Do(setup)</code> は読みやすく、 <code>once.DoOrWaitUntilDone(setup)</code> で改善されない。長い名前はもっと読みやすくなります。文書に注釈を付けるのが長い名前を使用するよりも良いでしょう。</p>
+<h2 id="ゲッター">ゲッター</h2>
+<p>Goはゲッターとセッターを独自に提供しません。自分でゲッターとセッターを作成して使用することができますが、これはまったく問題にはなりません。しかし、ゲッターの名前にGetを入れるのはGo言語の答えでも必須でもない。 owner（最初の文字が小文字でパッケージ外に公開されない）というフィールドを持っている場合、getterメソッドはGetOwnerではなくOwner（最初の文字が大文字で、パッケージから公開される）と呼ばれるべきです。パッケージ外に公開するために大文字の名前を使用することは、メソッドからフィールドを識別するためのフックを提供します。必要であれば、setter関数はSetOwnerと呼ばれます。どちらの名前も読みやすいです。</p>
+<pre><code class="lang-go">owner := obj.Owner()
+<span class="hljs-keyword">if</span> owner != user {
+    obj.SetOwner(user)
+}
+</code></pre>
+<h2 id="インターフェース名">インターフェース名</h2>
+<p>慣例的に、1つのメソッドを持つインタフェースは、メソッド名に `-er&apos;サフィックスを付けるか、エージェント名詞を構成する同様の変形によって指定される。例えば、Reader、Writer、Formatter、CloseNotifierなどがある。</p>
+<p>この種の名前があり、これらとそれらを通して知ることができる関数名を守っていくのは生産的です。 Read、Write、Close、Flush、Stringなどは各角度の用法と意味を持っている。混乱を避けるために、同じ使用法と意味を持たない限り、メソッドにこれらの名前と同じ名前を付けないでください。逆に言えば、あなたが実装した型に既によく知られている型が持っているメソッドと同じ意味を持つメソッドを実装しようとするなら、同じ名前を与えればよい。文字変換メソッドを作成する場合は、 <code>ToString</code>ではなく <code>String</code>を使用してください。</p>
+<h2 id="大文字と小文字の混合">大文字と小文字の混合</h2>
+<p>最後に、Goでのネーミングルールは、複数の単語の名前を命名するときにアンダーバー（_）の代わりに大文字と小文字の混合（ <code>MixedCaps</code>または <code>mixedCaps</code>）を使用することです。</p>
 
                                 
                                 </section>
@@ -1045,8 +1064,12 @@
 
             
                 
+                <a href="commentary.html" class="navigation navigation-prev " aria-label="Previous page: コメント">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 紹介">
+                
+                <a href="semicolons.html" class="navigation navigation-next " aria-label="Next page: セミコロン">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1057,7 +1080,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"README.md","mtime":"2022-03-10T09:40:40.843Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"名称","level":"1.5","depth":1,"next":{"title":"セミコロン","level":"1.6","depth":1,"path":"semicolons.md","ref":"semicolons.md","articles":[]},"previous":{"title":"コメント","level":"1.4","depth":1,"path":"commentary.md","ref":"commentary.md","articles":[]},"articles":[{"title":"パッケージ名","level":"1.5.1","depth":2,"anchor":"#パッケージ名","path":"names.md","ref":"names.md#パッケージ名","articles":[]},{"title":"ゲッター","level":"1.5.2","depth":2,"anchor":"#ゲッター","path":"names.md","ref":"names.md#ゲッター","articles":[]},{"title":"インターフェース名","level":"1.5.3","depth":2,"anchor":"#インターフェース名","path":"names.md","ref":"names.md#インターフェース名","articles":[]},{"title":"大文字と小文字の混合","level":"1.5.4","depth":2,"anchor":"#大文字と小文字の混合","path":"names.md","ref":"names.md#大文字と小文字の混合","articles":[]}],"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"names.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

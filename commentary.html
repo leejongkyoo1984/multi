@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · ドキュメントを GitHub Pages に公開する</title>
+        <title>コメント · ドキュメントを GitHub Pages に公開する</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="introduction.html" />
+    <link rel="next" href="names.html" />
     
+    
+    <link rel="prev" href="formatting.html" />
     
 
     </head>
@@ -90,7 +92,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -180,7 +182,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="commentary.html">
+        <li class="chapter active" data-level="1.4" data-path="commentary.html">
             
                 <a href="commentary.html">
             
@@ -998,7 +1000,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >コメント</a>
     </h1>
 </div>
 
@@ -1013,11 +1015,70 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="効果的なgoプログラミング">効果的なGoプログラミング</h1>
-<blockquote>
-<p><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a> 日本語翻訳文書です。</p>
-</blockquote>
-<p> <a href="summary.md">目次</a> をご覧ください。</p>
+                                <h1 id="コメントcommentary">コメント(Commentary)</h1>
+<p>Go言語はC言語スタイルの/*<em> *</em>/ブロックコメントとC++スタイルの//一行コメントを提供します。一行コメントは一般的に使用され、ブロックコメントはほとんどのパッケージコメントに表示されます。しかし、式の中や多くのコードをコメントアウトするのに便利です。</p>
+<p>プログラムやWebサーバーでもあるgodocは、パッケージの内容に関する文書を抽出するためにGoソースファイルを処理します。最上位宣言文の前に挟んだ改行なしで注釈が現れれば、その宣言文とともに抽出され、該当項目の説明として提供される。これらのコメントのスタイルとタイプは、godocが作成する文書の質を決定します。</p>
+<p>すべてのパッケージには、パッケージ構文の前にブロックコメント型のパッケージコメントが必要です。複数のファイルで構成されたパッケージの場合、パッケージのコメントは、どのファイルに関係なく、1つのファイルに存在する必要があり、それが使用されます。パッケージ注釈はパッケージを紹介し、パッケージ全体に関連する情報を提供しなければならない。パッケージコメントはgodocドキュメントの最初に表示されるので、後の詳細も書く必要があります。</p>
+<pre><code class="lang-go"><span class="hljs-comment">/*
+Package regexp implements a simple library for regular expressions.
+
+The syntax of the regular expressions accepted is:
+
+    regexp:
+        concatenation { &apos;|&apos; concatenation }
+    concatenation:
+        { closure }
+    closure:
+        term [ &apos;*&apos; | &apos;+&apos; | &apos;?&apos; ]
+    term:
+        &apos;^&apos;
+        &apos;$&apos;
+        &apos;.&apos;
+        character
+        &apos;[&apos; [ &apos;^&apos; ] character-ranges &apos;]&apos;
+        &apos;(&apos; regexp &apos;)&apos;
+*/</span>
+<span class="hljs-keyword">package</span> regexp
+</code></pre>
+<p>パッケージが単純な場合は、パッケージコメントも簡単です。</p>
+<pre><code>// Package path implements utility routines for
+// manipulating slash-separated filename paths.
+</code></pre><p>あまり行を書く過度なフォーマットは注釈に必要ない。さらに生成された出力が固定幅フォントで与えられないこともあるので、スペースや整列などに依存しないでください。これらはgofmtと同様にgodocによって処理されます。コメントは解釈されないプレーンテキストです。だからHTMLや <code>_this_</code>のようなコメントは書かれたまま表示されます。したがって、使用しない方が良い。 godocが修正する1つは、インデントされたテキストを固定幅フォントで表示することで、プログラムコードの彫刻のようなものに適している。 [fmt package]（<a href="https://golang.org/pkg/fmt/）のパッケージコメントは良い例です。" target="_blank">https://golang.org/pkg/fmt/）のパッケージコメントは良い例です。</a></p>
+<p>状況に応じて、godocはコメントを再変更しない可能性があります。だから確実に見事に作らなければならない。正確なスペル、口頭法、文章構造を使用し、緊張を減らさなければならない。</p>
+<p>パッケージ内の最上位宣言の直前のコメントは、その宣言の文書コメントとして扱われます。
+パッケージ内の最上位宣言の直前のコメントは、その宣言のための文書コメントです。プログラムですべての外部に公開される（大文字で始まる）名前には文書コメントが必要です。</p>
+<p>文書コメントは、非常に多様な自動化された表現を可能にする完全な文で書かれたときに最も効果的です。最初の文は、宣言された名前で始まる1行の文にまとめなければなりません。</p>
+<pre><code class="lang-go"><span class="hljs-comment">// Compile parses a regular expression and returns, if successful,</span>
+<span class="hljs-comment">// a Regexp that can be used to match against text.</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Compile</span><span class="hljs-params">(str <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(*Regexp, error)</span></span> {
+</code></pre>
+<p>もしすべての文書のコメントがそのコメントが記述する項目の名前で始まる場合、godocの結果はgrepステートメントを使用するのに役立つ形式になります。もしあなたが正規表現の解析関数を探していますが、「Compile」という名前を覚えておらず、次の命令を実行したと想像してみましょう。</p>
+<pre><code class="lang-go">$ godoc regexp | grep parse
+</code></pre>
+<p>もし文書コメントが「This function..」で始まる場合、grepコマンドはあなたが望む結果を示すことができないでしょう。しかし、パッケージは各ドキュメントコメントをパッケージ名で始めるので、以下のようにあなたが探していた単語を思い出させる結果を見ることができるでしょう。</p>
+<pre><code class="lang-go">$ godoc regexp | grep parse
+    Compile parses a regular expression and returns, <span class="hljs-keyword">if</span> successful, a Regexp
+    parsed. It simplifies safe initialization of global variables holding
+    cannot be parsed. It simplifies safe initialization of global variables
+$
+</code></pre>
+<p>Go言語の宣言構文はグループ化が可能である。 1つの文書コメントは、関連する定数または変数のグループについて説明できます。しかし、これらのコメントは宣言全体に現れるので、形式的なものにすることができます。</p>
+<pre><code class="lang-go"><span class="hljs-comment">// Error codes returned by failures to parse an expression.</span>
+<span class="hljs-keyword">var</span> (
+    ErrInternal      = errors.New(<span class="hljs-string">&quot;regexp: internal error&quot;</span>)
+    ErrUnmatchedLpar = errors.New(<span class="hljs-string">&quot;regexp: unmatched &apos;(&apos;&quot;</span>)
+    ErrUnmatchedRpar = errors.New(<span class="hljs-string">&quot;regexp: unmatched &apos;)&apos;&quot;</span>)
+    ...
+)
+</code></pre>
+<p>グループ化は項目間の関連性を表すことができる。たとえば、以下の変数のグループはミューテックスによって保護されていることを示しています。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> (
+    countLock   sync.Mutex
+    inputCount  <span class="hljs-keyword">uint32</span>
+    outputCount <span class="hljs-keyword">uint32</span>
+    errorCount  <span class="hljs-keyword">uint32</span>
+)
+</code></pre>
 
                                 
                                 </section>
@@ -1045,8 +1106,12 @@
 
             
                 
+                <a href="formatting.html" class="navigation navigation-prev " aria-label="Previous page: フォーマティング">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 紹介">
+                
+                <a href="names.html" class="navigation navigation-next " aria-label="Next page: 名称">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1057,7 +1122,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"README.md","mtime":"2022-03-10T09:40:40.843Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"コメント","level":"1.4","depth":1,"next":{"title":"名称","level":"1.5","depth":1,"path":"names.md","ref":"names.md","articles":[{"title":"パッケージ名","level":"1.5.1","depth":2,"anchor":"#パッケージ名","path":"names.md","ref":"names.md#パッケージ名","articles":[]},{"title":"ゲッター","level":"1.5.2","depth":2,"anchor":"#ゲッター","path":"names.md","ref":"names.md#ゲッター","articles":[]},{"title":"インターフェース名","level":"1.5.3","depth":2,"anchor":"#インターフェース名","path":"names.md","ref":"names.md#インターフェース名","articles":[]},{"title":"大文字と小文字の混合","level":"1.5.4","depth":2,"anchor":"#大文字と小文字の混合","path":"names.md","ref":"names.md#大文字と小文字の混合","articles":[]}]},"previous":{"title":"フォーマティング","level":"1.3","depth":1,"path":"formatting.md","ref":"formatting.md","articles":[]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"commentary.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

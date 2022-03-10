@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · ドキュメントを GitHub Pages に公開する</title>
+        <title>メソッド · ドキュメントを GitHub Pages に公開する</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="introduction.html" />
+    <link rel="next" href="interfaces_and_other_types.html" />
     
+    
+    <link rel="prev" href="initializations.html" />
     
 
     </head>
@@ -90,7 +92,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -613,7 +615,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11" data-path="methods.html">
+        <li class="chapter active" data-level="1.11" data-path="methods.html">
             
                 <a href="methods.html">
             
@@ -998,7 +1000,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >メソッド</a>
     </h1>
 </div>
 
@@ -1013,11 +1015,38 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="効果的なgoプログラミング">効果的なGoプログラミング</h1>
-<blockquote>
-<p><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a> 日本語翻訳文書です。</p>
-</blockquote>
-<p> <a href="summary.md">目次</a> をご覧ください。</p>
+                                <h1 id="メソッド">メソッド</h1>
+<h2 id="ポインター対。値">ポインター対。値</h2>
+<p><code>ByteSize</code>で見られるように、メソッドはポインタとインタフェースを除くすべての型に対して定義が可能である。受信機は必ずしも構造体である必要はありません。</p>
+<p>上記のスライスについての議論で、我々はAppend関数を書いた。これをスライスのメソッドとしてオーバーライドできます。このために、このメソッドをバインドするタイプを一つ宣言しましょう。そして、メソッドから型の値を受け取るためのレシーバを作成しましょう。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> ByteSlice []<span class="hljs-keyword">byte</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(slice ByteSlice)</span> <span class="hljs-title">Append</span><span class="hljs-params">(data []<span class="hljs-keyword">byte</span>)</span> []<span class="hljs-title">byte</span></span> {
+    <span class="hljs-comment">// 関数の内容は、上記で定義したAppend関数とまったく同じです。</span>
+}
+</code></pre>
+<p>この関数はまだ更新されたスライスを返す必要があります。この手間をメソッドが <code>ByteSlice</code> へのポインタをレシーバとして受け取ることができるようにオーバーライドすることで、このメソッドはメソッドを呼び出したスライスを上書きすることができます。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *ByteSlice)</span> <span class="hljs-title">Append</span><span class="hljs-params">(data []<span class="hljs-keyword">byte</span>)</span></span> {
+    slice := *p
+    <span class="hljs-comment">// 関数の内容は上記と同じですが、returnはありません。</span>
+    *p = slice
+}
+</code></pre>
+<p>実際、これより良い関数を書くこともできます。上記の関数を次のように標準の <code>Write</code>メソッドのように書くと</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *ByteSlice)</span> <span class="hljs-title">Write</span><span class="hljs-params">(data []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-params">(n <span class="hljs-keyword">int</span>, err error)</span></span> {
+    slice := *p
+    <span class="hljs-comment">// 内容は上記の通りです。</span>
+    *p = slice
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(data), <span class="hljs-literal">nil</span>
+}
+</code></pre>
+<p>タイプ <code>*ByteSlice</code> は標準インターフェース <code>io.Writer</code> に準拠し、扱いが楽になる。たとえば、次のように <code>ByteSlice</code>に値を入れることができます。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> b ByteSlice
+fmt.Fprintf(&amp;b, <span class="hljs-string">&quot;This hour has %d days\n&quot;</span>, <span class="hljs-number">7</span>)
+</code></pre>
+<p><code>ByteSlice</code>のアドレスだけを渡したのは、ポインタ型の<code>*ByteSlice</code>だけが<code>io.Writer</code>インタフェースを満たすからだ。受信者にポインタを書き込むか値を書き込むかについての規則は、値を使用するメソッドはポインタと値の両方で使用でき、ポインタメソッドの場合はポインタでのみ使用できるということです。</p>
+<p>このようなルールは、ポインタメソッドはレシーバを変形させることができ、メソッドを値から呼び出すと値のコピーを受け取るため元の値を変形できないために生じた。 Go言語はこれらの間違い（値でポインタメソッドを実行すること）を許可しません。しかし、便利な例外もある。アドレスを取得できる値の場合、Go言語はポインタメソッドを値の上で実行すると自動的にアドレス演算を入れます。上記の例では、変数 <code>b</code>はアドレスにアクセス可能であるため、単に <code>b.Write</code>だけで <code>Write</code>メソッドを呼び出すことができます。コンパイラはこれを <code>(&amp;b).Write</code> に書き換えます。</p>
+<p>どうやら、バイトスライスに <code>Write</code>を使用するというアイデアは <code>bytes.Buffer</code>実装の核心でもある。</p>
 
                                 
                                 </section>
@@ -1045,8 +1074,12 @@
 
             
                 
+                <a href="initializations.html" class="navigation navigation-prev " aria-label="Previous page: 初期化">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 紹介">
+                
+                <a href="interfaces_and_other_types.html" class="navigation navigation-next " aria-label="Next page: インターフェースと他のタイプ">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1057,7 +1090,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"README.md","mtime":"2022-03-10T09:40:40.843Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"メソッド","level":"1.11","depth":1,"next":{"title":"インターフェースと他のタイプ","level":"1.12","depth":1,"path":"interfaces_and_other_types.md","ref":"interfaces_and_other_types.md","articles":[{"title":"インターフェース","level":"1.12.1","depth":2,"anchor":"#インターフェース","path":"interfaces_and_other_types.md","ref":"interfaces_and_other_types.md#インターフェース","articles":[]},{"title":"タイプ変換","level":"1.12.2","depth":2,"anchor":"#タイプ変換","path":"interfaces_and_other_types.md","ref":"interfaces_and_other_types.md#タイプ変換","articles":[]},{"title":"インターフェース変換とタイプの断言","level":"1.12.3","depth":2,"anchor":"#インターフェース変換とタイプの断言","path":"interfaces_and_other_types.md","ref":"interfaces_and_other_types.md#インターフェース変換とタイプの断言","articles":[]},{"title":"一般性","level":"1.12.4","depth":2,"anchor":"#一般性","path":"interfaces_and_other_types.md","ref":"interfaces_and_other_types.md#一般性","articles":[]},{"title":"インタフェースとメソッド","level":"1.12.5","depth":2,"anchor":"#インタフェースとメソッド","path":"interfaces_and_other_types.md","ref":"interfaces_and_other_types.md#インタフェースとメソッド","articles":[]}]},"previous":{"title":"初期化","level":"1.10","depth":1,"path":"initializations.md","ref":"initializations.md","articles":[{"title":"定数","level":"1.10.1","depth":2,"anchor":"#定数","path":"initializations.md","ref":"initializations.md#定数","articles":[]},{"title":"変数","level":"1.10.2","depth":2,"anchor":"#変数","path":"initializations.md","ref":"initializations.md#変数","articles":[]},{"title":"init関数","level":"1.10.3","depth":2,"anchor":"#init関数","path":"initializations.md","ref":"initializations.md#init関数","articles":[]}]},"articles":[{"title":"ポインター対。値","level":"1.11.1","depth":2,"anchor":"#ポインター対。値","path":"methods.md","ref":"methods.md#ポインター対。値","articles":[]}],"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"methods.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

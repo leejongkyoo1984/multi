@@ -1,0 +1,1355 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <title>並行性 · ドキュメントを GitHub Pages に公開する</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        <meta name="author" content="leejongkyoo">
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-toggle-chapters/toggle-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="errors.html" />
+    
+    
+    <link rel="prev" href="embedding.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索ワードを入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="introduction.html">
+            
+                <a href="introduction.html">
+            
+                    
+                    紹介
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="introduction.html">
+            
+                <a href="introduction.html#例">
+            
+                    
+                    例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="introduction.html">
+            
+                <a href="introduction.html#例">
+            
+                    
+                    例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="introduction.html">
+            
+                <a href="introduction.html#例">
+            
+                    
+                    例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="formatting.html">
+            
+                <a href="formatting.html">
+            
+                    
+                    フォーマティング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="commentary.html">
+            
+                <a href="commentary.html">
+            
+                    
+                    コメント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="names.html">
+            
+                <a href="names.html">
+            
+                    
+                    名称
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="names.html">
+            
+                <a href="names.html#パッケージ名">
+            
+                    
+                    パッケージ名
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="names.html">
+            
+                <a href="names.html#ゲッター">
+            
+                    
+                    ゲッター
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="names.html">
+            
+                <a href="names.html#インターフェース名">
+            
+                    
+                    インターフェース名
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="names.html">
+            
+                <a href="names.html#大文字と小文字の混合">
+            
+                    
+                    大文字と小文字の混合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="semicolons.html">
+            
+                <a href="semicolons.html">
+            
+                    
+                    セミコロン
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="control_structures.html">
+            
+                <a href="control_structures.html">
+            
+                    
+                    制御構造
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="control_structures.html">
+            
+                <a href="control_structures.html#if">
+            
+                    
+                    If
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="control_structures.html">
+            
+                <a href="control_structures.html#再宣言と再割り当て">
+            
+                    
+                    再宣言と再割り当て
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="control_structures.html">
+            
+                <a href="control_structures.html#for">
+            
+                    
+                    For
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="control_structures.html">
+            
+                <a href="control_structures.html#switch">
+            
+                    
+                    Switch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="control_structures.html">
+            
+                <a href="control_structures.html#タイプswitch">
+            
+                    
+                    タイプswitch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="functions.html">
+            
+                <a href="functions.html">
+            
+                    
+                    関数
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="functions.html">
+            
+                <a href="functions.html#複数の戻り値">
+            
+                    
+                    複数の戻り値
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="functions.html">
+            
+                <a href="functions.html#名前付き結果引数">
+            
+                    
+                    名前付き結果引数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="functions.html">
+            
+                <a href="functions.html#defer">
+            
+                    
+                    Defer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="data.html">
+            
+                <a href="data.html">
+            
+                    
+                    データ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="data.html">
+            
+                <a href="data.html#newを使用したメモリ割り当て">
+            
+                    
+                    newを使用したメモリ割り当て
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="data.html">
+            
+                <a href="data.html#コンストラクタと合成リテラル">
+            
+                    
+                    コンストラクタと合成リテラル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="data.html">
+            
+                <a href="data.html#makeを使用したメモリ割り当て">
+            
+                    
+                    makeを使用したメモリ割り当て
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="data.html">
+            
+                <a href="data.html#配列">
+            
+                    
+                    配列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="data.html">
+            
+                <a href="data.html#slices">
+            
+                    
+                    Slices
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="data.html">
+            
+                <a href="data.html#二次元slices">
+            
+                    
+                    二次元slices
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="data.html">
+            
+                <a href="data.html#maps">
+            
+                    
+                    Maps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="data.html">
+            
+                <a href="data.html#出力">
+            
+                    
+                    出力
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="data.html">
+            
+                <a href="data.html#append">
+            
+                    
+                    Append
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="initializations.html">
+            
+                <a href="initializations.html">
+            
+                    
+                    初期化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="initializations.html">
+            
+                <a href="initializations.html#定数">
+            
+                    
+                    定数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="initializations.html">
+            
+                <a href="initializations.html#変数">
+            
+                    
+                    変数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="initializations.html">
+            
+                <a href="initializations.html#init関数">
+            
+                    
+                    init関数
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="methods.html">
+            
+                <a href="methods.html">
+            
+                    
+                    メソッド
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="methods.html">
+            
+                <a href="methods.html#ポインター対。値">
+            
+                    
+                    ポインター対。値
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html">
+            
+                    
+                    インターフェースと他のタイプ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#インターフェース">
+            
+                    
+                    インターフェース
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#タイプ変換">
+            
+                    
+                    タイプ変換
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#インターフェース変換とタイプの断言">
+            
+                    
+                    インターフェース変換とタイプの断言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#一般性">
+            
+                    
+                    一般性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.5" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#インタフェースとメソッド">
+            
+                    
+                    インタフェースとメソッド
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html">
+            
+                    
+                    スペース識別子
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#複数の割り当てにおける空白識別子">
+            
+                    
+                    複数の割り当てにおける空白識別子
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#付随効果のためのインポート">
+            
+                    
+                    未使用のインポートと変数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#付随効果のためのインポート">
+            
+                    
+                    付随効果のためのインポート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.4" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#インターフェース検査">
+            
+                    
+                    インターフェース検査
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="embedding.html">
+            
+                <a href="embedding.html">
+            
+                    
+                    埋め込み
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.15" data-path="concurrency.html">
+            
+                <a href="concurrency.html">
+            
+                    
+                    並行性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="concurrency.html">
+            
+                <a href="concurrency.html#コミュニケーションで共有する">
+            
+                    
+                    コミュニケーションで共有する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="concurrency.html">
+            
+                <a href="concurrency.html#ゴルティン">
+            
+                    
+                    ゴルティン
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="concurrency.html">
+            
+                <a href="concurrency.html#チャンネル">
+            
+                    
+                    チャンネル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="concurrency.html">
+            
+                <a href="concurrency.html#チャネルのチャネル">
+            
+                    
+                    チャネルのチャネル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.5" data-path="concurrency.html">
+            
+                <a href="concurrency.html#並列化">
+            
+                    
+                    並列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.6" data-path="concurrency.html">
+            
+                <a href="concurrency.html#漏れのあるバッファ">
+            
+                    
+                    漏れのあるバッファ
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="errors.html">
+            
+                <a href="errors.html">
+            
+                    
+                    エラー
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="errors.html">
+            
+                <a href="errors.html#パニック-panic">
+            
+                    
+                    パニック
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="errors.html">
+            
+                <a href="errors.html#回復-recover">
+            
+                    
+                    回復
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="a_web_server.html">
+            
+                <a href="a_web_server.html">
+            
+                    
+                    Webサーバー
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            HonKitで公開 
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >並行性</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="同時性concurrency">同時性(Concurrency)</h1>
+<h2 id="通信による共有">通信による共有</h2>
+<p>並行性プログラミングは広範なトピックなので、ここではGoに限定されている重要なものについてのみ地面を割く。</p>
+<p>共有変数への正確なアプローチを実装するために厳守する必要がある細部は、さまざまな環境で並行性プログラミングを困難にしました。 Goは、共有変数がチャンネルを返して渡されるという点で、他のアプローチをお勧めします。そして実際、共有変数は個々のスレッドの実行によって決して共有されません。いつでも1つのゴルチンが値にアクセスします。データ競合は、実装設計では発生できません。この考え方を奨励するために、これを1つのスローガンに減らしました。</p>
+<p>共有メモリと通信してはいけない。代わりに、通信でメモリを共有します。</p>
+<p>このアプローチはあまりにも過度のものかもしれません。例えば、整数型変数の周囲にミューテックスを置く方式のリファレンスカウントが最高かもしれない。しかし、より高いレベルでアクセスする方法として、アクセスを制御するチャネルを使用すると、明確で正確なプログラムをより簡単に作成できます。</p>
+<p>このモデルについて考える1つの方法は、単一のCPUで実行される典型的なシングルスレッドプログラムを思い出すことです。これは同期のための基本的なデータ型を必要としません。今別のインスタンスを実行してみてください。しかし、やはり同期は必要ありません。これで2つの通信が可能になりますが、その通信自体が同期装置である場合、まだ他の同期は必要ありません。たとえば、Unixパイプラインはこのモデルに完全に収まります。同時性に対するGoのアプローチは、Hoareのコミュニケーションシーケンシャルプロセス（CSP、Communicating Sequential Processes）から来ているが、タイプセーフティが保証される式の一般化されたUNIXパイプと見なすことができる。</p>
+<h2 id="ゴルティン">ゴルティン</h2>
+<p>スレッド、コルーチン、プロセスなど、既存の用語は不正確な意味を伝えるため、ゴルチンと呼ばれます。ゴルチンは単純なモデルです。つまり、同じアドレス空間で他のゴルチンと同時に実行される関数である。ゴルチンは軽い。スタック領域を割り当てるよりもコストがかかります。そしてそのスタックは小さなサイズで始まります。だから安いです。そして必要なだけヒープストレージを割り当て（または解放）して大きくなる。</p>
+<p>ゴルチンはOSのマルチスレッドに多重化されますが、I / O操作のために待機しているときのように、1つのゴルチンがブロックされると、別のゴルチンが実行され続けます。この設計は、スレッドの複雑な作成と管理についてあえて知る必要がなくなります。</p>
+<p>新しいゴルチンを呼び出して実行するには、<code>go</code>キーワードを関数またはメソッド呼び出しの前に置きます。呼び出しが完了すると、ゴルチンは自動的に終了します。 （バックグラウンドでコマンドを実行するUnixシェルと表記と同様の効果です。）</p>
+<pre><code class="lang-go"><span class="hljs-keyword">go</span> list.Sort()  <span class="hljs-comment">// list.Sort를 （ソートが完了するまで）待たずに同時に実行</span>
+</code></pre>
+<p>関数リテラルはゴルチン呼び出しに役立ちます。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Announce</span><span class="hljs-params">(message <span class="hljs-keyword">string</span>, delay time.Duration)</span></span> {
+    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+        time.Sleep(delay)
+        fmt.Println(message)
+    }() <span class="hljs-comment">//かっこに注意 - 関数を呼び出す必要があります</span>
+}
+</code></pre>
+<p>Goでは、関数リテラルはクロージャです。つまり、関数が参照する変数を使用している間は、その生存を保証する方法で実装されているということです。</p>
+<p>上記の例は、関数が終了を知らせる方法がないため、非常に実用的ではありません。これにはチャネルが必要です。</p>
+<h2 id="チャンネル">チャンネル</h2>
+<p>マップと同様に、チャネルは <code>make</code> に割り当てられ、結果の値は実際のデータ構造への参照として機能します。オプションの整数型パラメータが与えられると、チャネルのバッファサイズが設定されます。この値は、アンバッファードまたは同期チャネルのデフォルト値が0です。</p>
+<pre><code class="lang-go">ci := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)            <span class="hljs-comment">// 整数型のアンバッファードチャンネル</span>
+cj := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)         <span class="hljs-comment">// 整数型のアンバッファードチャンネル</span>
+cs := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *os.File, <span class="hljs-number">100</span>)  <span class="hljs-comment">// Fileポインタ型のバッファドチャンネル</span>
+</code></pre>
+<p>バッファなしのチャネルは、同期で値を交換し、両方の計算（ゴルチン）がどの状態にあるかを知ることができることを保証する通信を組み合わせます。</p>
+<p>チャンネルを使用する素晴らしいゴージャスなコードがたくさんあります。次の例で始めましょう。前のセクションでバックグラウンドでソートしました。チャネルは、ソートが完了するまでゴルチン実行を待つことができる。</p>
+<pre><code class="lang-go">c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)  <span class="hljs-comment">// チャンネルを割り当てる</span>
+<span class="hljs-comment">// ゴルチンでアライメントを開始し、完了するとチャンネルに信号を送信する</span>
+<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+    list.Sort()
+    c &lt;- <span class="hljs-number">1</span>  <span class="hljs-comment">//  シグナルを送信しますが、値は問題ありません</span>
+}()
+doSomethingForAWhile()
+&lt;-c   <span class="hljs-comment">// ソートが終了するのを待って渡された値は破棄されます</span>
+</code></pre>
+<p>受信部は、受信するデータがあるまで常にブロックされる。アンバッファードチャネルの場合、送信部は受信部が値を受け取るまでブロックされる。バッファ付きチャネルの場合、値がバッファにコピーされるまで送信部がブロックされます。したがって、バッファがいっぱいになると、これは特定の受信部が値を取得するのを待っていることを意味します。</p>
+<p>バッファ付きチャネルはセマフォのように使用できます。例えば、スループットを制限するものです。次の例では、着信要求は <code>handle</code> に渡されます。 <code>handle</code>では、1つの値（どんな値でも構わない）をチャネルに送信し、要求を処理してから、チャネルから1つの値を受け取り、次の消費者のために「セマフォ」を準備させる。チャネルバッファのサイズが同時に処理できる数値を制限するものです。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> sem = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, MaxOutstanding)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handle</span><span class="hljs-params">(r *Request)</span></span> {
+    sem &lt;- <span class="hljs-number">1</span> <span class="hljs-comment">// アクティブキューが空になるまで待機</span>
+    process(r) <span class="hljs-comment">// 時間がかかる作業</span>
+    &lt;-sem <span class="hljs-comment">// 完了、実行する次の要求を有効にする</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Serve</span><span class="hljs-params">(queue <span class="hljs-keyword">chan</span> *Request)</span></span> {
+    <span class="hljs-keyword">for</span> {
+        req := &lt;-queue
+        <span class="hljs-keyword">go</span> handle(req)  <span class="hljs-comment">// 終わるまで待たない</span>
+    }
+}
+</code></pre>
+<p>一旦MaxOutstanding数のハンドラが <code>process</code>を実行している間、既存のハンドラの1つが完了してバッファから値を受け取るまで、よりいっぱいのチャネルバッファに送信することはブロックされます。</p>
+<p>しかし、この設計は問題がある。つまり、リクエスト全体でたったの <code>MaxOutstanding</code> 数だけ <code>process</code> を実行できるにもかかわらず、サーバは着信するすべてのリクエストに対して新しいゴルチンを生成するということです。その結果、要求が早すぎる場合は、無制限にリソースを無駄にすることができます。この欠陥は、ゴルチンの生成を制限するゲートで <code>Serve</code>を修正することによって解決することができます。確実な解決策は次のとおりですが、後で修正するバグがあることに注意してください。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Serve</span><span class="hljs-params">(queue <span class="hljs-keyword">chan</span> *Request)</span></span> {
+    <span class="hljs-keyword">for</span> req := <span class="hljs-keyword">range</span> queue {
+        sem &lt;- <span class="hljs-number">1</span>
+        <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+            process(req) <span class="hljs-comment">// バグ、以下の説明を参照</span>
+            &lt;-sem
+        }()
+    }
+}
+</code></pre>
+<p>バグはGo <code>for</code>ループにあります。ループ変数は繰り返しごとに再利用され、同じ <code>req</code>変数がすべてのゴルチンで共有されます。これは望むものではありません。各ゴルチンごとに区別された <code>req</code>変数を持たなければなりません。以下は、このための1つの方法で、ゴルチンのクロージャの引数として <code>req</code>の値を渡すことです:</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Serve</span><span class="hljs-params">(queue <span class="hljs-keyword">chan</span> *Request)</span></span> {
+    <span class="hljs-keyword">for</span> req := <span class="hljs-keyword">range</span> queue {
+        sem &lt;- <span class="hljs-number">1</span>
+        <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(req *Request)</span></span> {
+            process(req)
+            &lt;-sem
+        }(req)
+    }
+}
+</code></pre>
+<p>以前のバージョンとクロージャがどのように宣言され実行されるかを確認するために、次のバージョンを比較してください。別の解決策は、次の例のように、同じ名前の新しい変数を作成することです。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Serve</span><span class="hljs-params">(queue <span class="hljs-keyword">chan</span> *Request)</span></span> {
+    <span class="hljs-keyword">for</span> req := <span class="hljs-keyword">range</span> queue {
+        req := req <span class="hljs-comment">// ゴルチン用の新しいreqインスタンスを作成する</span>
+        sem &lt;- <span class="hljs-number">1</span>
+        <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> {
+            process(req)
+            &lt;-sem
+        }()
+    }
+}
+</code></pre>
+<p>奇妙なコードを書くように見えるかもしれません。</p>
+<pre><code class="lang-go">req := req
+</code></pre>
+<p>しかし、Goでこれを行うのは合法的でGo言語ダウンコードです。同じ名前の新しいバージョンの変数は、意図的にループ変数をローカルに選別しますが、各ゴルチンについてはユニークな値です。</p>
+<p>サーバーを作成する一般的な問題に戻ると、リソースをうまく管理する別の方法は、要求チャネルを読み取るすべての <code>handle</code>ゴルチンを固定数で開始することです。ゴルチンの数は <code>process</code>が同時に呼び出される数を制限します。 <code>Serve</code>関数は終了信号を受信するようになるチャネルも（引数として）受け取っているのでゴルチンが始まると、このチャネルからの受信はブロックされる。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handle</span><span class="hljs-params">(queue <span class="hljs-keyword">chan</span> *Request)</span></span> {
+    <span class="hljs-keyword">for</span> r := <span class="hljs-keyword">range</span> queue {
+        process(r)
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Serve</span><span class="hljs-params">(clientRequests <span class="hljs-keyword">chan</span> *Request, quit <span class="hljs-keyword">chan</span> <span class="hljs-keyword">bool</span>)</span></span> {
+    <span class="hljs-comment">// 핸들러 시작</span>
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; MaxOutstanding; i++ {
+        <span class="hljs-keyword">go</span> handle(clientRequests)
+    }
+    &lt;-quit  <span class="hljs-comment">// 終了信号を受信するまで待機</span>
+}
+</code></pre>
+<h2 id="チャンネルのチャンネル">チャンネルのチャンネル</h2>
+<p>Goの最も重要な属性の1つは、チャネルが他のものと同じように割り当てられて渡されることができる一次変数（first-class value）です。一般に、この属性は安全なパラレル逆多重化を実現するために使用されます。</p>
+<p>前のセクションの例では、 <code>handle</code> は要求に対して理想的なハンドラーでしたが、ハンドラーが扱うタイプは定義しませんでした。対応するタイプが返信するチャネルを含む場合、各クライアントは自分に応答経路を提供することができる。以下は <code>Request</code>型の概略定義です。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> Request <span class="hljs-keyword">struct</span> {
+    args        []<span class="hljs-keyword">int</span>
+    f           <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">([]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span>
+    resultChan  <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>
+}
+</code></pre>
+<p>クライアントは、関数とその引数だけでなく、要求オブジェクト内で応答を受信するチャネルを提供しています。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(a []<span class="hljs-keyword">int</span>)</span> <span class="hljs-params">(s <span class="hljs-keyword">int</span>)</span></span> {
+    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> a {
+        s += v
+    }
+    <span class="hljs-keyword">return</span>
+}
+
+request := &amp;Request{[]<span class="hljs-keyword">int</span>{<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>}, sum, <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)}
+<span class="hljs-comment">// リクエスト転送</span>
+clientRequests &lt;- request
+<span class="hljs-comment">// 応答待ち</span>
+fmt.Printf(<span class="hljs-string">&quot;answer: %d\n&quot;</span>, &lt;-request.resultChan)
+</code></pre>
+<p>サーバ側ではハンドラ関数だけを修正すればよい。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">handle</span><span class="hljs-params">(queue <span class="hljs-keyword">chan</span> *Request)</span></span> {
+    <span class="hljs-keyword">for</span> req := <span class="hljs-keyword">range</span> queue {
+        req.resultChan &lt;- req.f(req.args)
+    }
+}
+</code></pre>
+<p>実際に使用するにはまだやることがたくさんあることは明らかですが、このコードは速度制限、パラレル、ノンブロックRPCシステムのためのフレームワークです。そしてミューテックスは目に見えません。</p>
+<h2 id="並列化">並列化</h2>
+<p>このアイデアの別のアプリケーションは、マルチコアCPUの計算を並列処理することです。計算を独立して実行可能な部分に分けることができる場合、各部分が完了したときに信号を送信するチャネルに並列処理することができる。</p>
+<p>ベクトルアイテムに対する実行コストが高い演算があると仮定しよう。そして次の理想的な例のように各アイテムを演算した値は独立である。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> Vector []<span class="hljs-keyword">float64</span>
+
+<span class="hljs-comment">//  v[i]、v[i+1]からv[n-1]までの演算を適用</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v Vector)</span> <span class="hljs-title">DoSome</span><span class="hljs-params">(i, n <span class="hljs-keyword">int</span>, u Vector, c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>)</span></span> {
+    <span class="hljs-keyword">for</span> ; i &lt; n; i++ {
+        v[i] += u.Op(v[i])
+    }
+    c &lt;- <span class="hljs-number">1</span>    <span class="hljs-comment">// この部分が完了すると信号</span>
+}
+</code></pre>
+<p>ループ内で独立して各部分をCPUごとに1つずつ実行させる。これらはどの順序でも完了できますが、順序は問題ありません。したがって、すべてのゴルチンを実行した後、チャンネルを空にして完了信号をカウントします。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">const</span> numCPU = <span class="hljs-number">4</span> <span class="hljs-comment">// CPU  コア数</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v Vector)</span> <span class="hljs-title">DoAll</span><span class="hljs-params">(u Vector)</span></span> {
+    c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span>, numCPU)  <span class="hljs-comment">// バッファはオプションまたは常識</span>
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; numCPU; i++ {
+        <span class="hljs-keyword">go</span> v.DoSome(i*<span class="hljs-built_in">len</span>(v)/numCPU, (i+<span class="hljs-number">1</span>)*<span class="hljs-built_in">len</span>(v)/numCPU, u, c)
+    }
+    <span class="hljs-comment">// チャンネルを空にする</span>
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; numCPU; i++ {
+        &lt;-c    <span class="hljs-comment">// 1つのタスクが終了するまで待機</span>
+    }
+    <span class="hljs-comment">// すべて完了</span>
+}
+</code></pre>
+<p><code>numCPU</code>を定数値として生成するのではなく、適切な値を実行時に要求することができます。 <code>runtime.NumCPU</code>関数は機器のCPUハードウェアコア数を返します。だから以下のように書くことができる。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> numCPU = runtime.NumCPU()
+</code></pre>
+<p>また、Goプログラムには、同時に実行できるカスタムコア数を報告する（または設定する） <code>runtime.GOMAXPROCS</code>関数があります。 <code>runtime.NumCPU</code>の値がデフォルト値ですが、同様に名前付き環境変数設定によって、あるいは正数の引数で関数を呼び出してオーバーライドできる。 0で呼び出すとすぐに値を照会します。したがって、ユーザーのリソース要求に従いたい場合は、次のように作成する必要があります。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> numCPU = runtime.GOMAXPROCS(<span class="hljs-number">0</span>)
+</code></pre>
+<p>コンポーネントを独立して処理してプログラムを構造化する並行性と、複数CPUで効率性のために計算を並列に処理する並列性の概念を混同しないことを願う。 Goの並行性の特徴は、並列計算で問題を簡単に構造化できますが、Goは並列ではなく並行性言語であり、すべての並列化の問題がGoに当てはまるわけではありません。このセグメンテーションの議論については、<a href="https://blog.golang.org/concurrency-is-not-parallelism" target="_blank">このブログ投稿</a>で引用されているトルクを参照してください。</p>
+<h2 id="漏れバッファ">漏れバッファ</h2>
+<p>非同時性概念も同時実行プログラミングツールで簡単に表現できます。以下はRPCパッケージから抽出した例です。クライアントゴルチンは、おそらくネットワークである特定のソースからのデータを繰り返し受信します。バッファの割り当てと解放を避けるために <code>free list</code> を維持し、それに代わるバッファチャネルを使う。チャネルが空の場合、新しいバッファが割り当てられます。メッセージバッファが準備されたら、 <code>serverChan</code>のサーバに送信します。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> freeList = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *Buffer, <span class="hljs-number">100</span>)
+<span class="hljs-keyword">var</span> serverChan = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *Buffer)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">client</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">for</span> {
+        <span class="hljs-keyword">var</span> b *Buffer
+        <span class="hljs-comment">// 利用可能なバッファを取得するか、そうでない場合は割り当て</span>
+        <span class="hljs-keyword">select</span> {
+            <span class="hljs-keyword">case</span> b = &lt;-freeList:
+                <span class="hljs-comment">// 1つを獲得し、何もしない</span>
+            <span class="hljs-keyword">default</span>:
+                <span class="hljs-comment">// 取得するバッファがないので、新しいバッファを割り当てる</span>
+            b = <span class="hljs-built_in">new</span>(Buffer)
+        }
+        load(b)              <span class="hljs-comment">// ネットワークから次のメッセージを読む</span>
+        serverChan &lt;- b      <span class="hljs-comment">// サーバーに送信</span>
+    }
+}
+</code></pre>
+<p>サーバーループは各クライアントからメッセージを受信して​​処理し、free listにバッファを返します。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">server</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">for</span> {
+        b := &lt;-serverChan    <span class="hljs-comment">// 動作を待つ</span>
+        process(b)
+        <span class="hljs-comment">// 可能であればバッファを再利用する</span>
+        <span class="hljs-keyword">select</span> {
+            <span class="hljs-keyword">case</span> freeList &lt;- b:
+                <span class="hljs-comment">// free listのバッファ。何もしない</span>
+            <span class="hljs-keyword">default</span>:
+                <span class="hljs-comment">// free listがいっぱい、ただ続く</span>
+        }
+    }
+}
+</code></pre>
+<p>クライアントは <code>freeList</code>でバッファを取得しようとしますが、バッファが利用できない場合は新しいバッファを割り当てます。リストがいっぱいでない限り、サーバーはバッファを <code>freeList</code>に送信し、フリーリストにバッファbを戻します。リストがいっぱいになっている場合、バッファは底に落ちてガベージコレクタによって回収されます。 （ <code>select</code>構文の <code>default</code>句は他のケースが準備されていない場合に実行されます。これは <code>select</code>が決してブロックされないことを意味します。）もともと実装された漏れバケットフリーリスト（leaky bucket free list）を作成した。</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="embedding.html" class="navigation navigation-prev " aria-label="Previous page: 埋め込み">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="errors.html" class="navigation navigation-next " aria-label="Next page: エラー">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"並行性","level":"1.15","depth":1,"next":{"title":"エラー","level":"1.16","depth":1,"path":"errors.md","ref":"errors.md","articles":[{"title":"パニック","level":"1.16.1","depth":2,"anchor":"#パニック-panic","path":"errors.md","ref":"errors.md#パニック-panic","articles":[]},{"title":"回復","level":"1.16.2","depth":2,"anchor":"#回復-recover","path":"errors.md","ref":"errors.md#回復-recover","articles":[]}]},"previous":{"title":"埋め込み","level":"1.14","depth":1,"path":"embedding.md","ref":"embedding.md","articles":[]},"articles":[{"title":"コミュニケーションで共有する","level":"1.15.1","depth":2,"anchor":"#コミュニケーションで共有する","path":"concurrency.md","ref":"concurrency.md#コミュニケーションで共有する","articles":[]},{"title":"ゴルティン","level":"1.15.2","depth":2,"anchor":"#ゴルティン","path":"concurrency.md","ref":"concurrency.md#ゴルティン","articles":[]},{"title":"チャンネル","level":"1.15.3","depth":2,"anchor":"#チャンネル","path":"concurrency.md","ref":"concurrency.md#チャンネル","articles":[]},{"title":"チャネルのチャネル","level":"1.15.4","depth":2,"anchor":"#チャネルのチャネル","path":"concurrency.md","ref":"concurrency.md#チャネルのチャネル","articles":[]},{"title":"並列化","level":"1.15.5","depth":2,"anchor":"#並列化","path":"concurrency.md","ref":"concurrency.md#並列化","articles":[]},{"title":"漏れのあるバッファ","level":"1.15.6","depth":2,"anchor":"#漏れのあるバッファ","path":"concurrency.md","ref":"concurrency.md#漏れのあるバッファ","articles":[]}],"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"concurrency.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-toggle-chapters/toggle-chapters.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

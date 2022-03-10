@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · ドキュメントを GitHub Pages に公開する</title>
+        <title>初期化 · ドキュメントを GitHub Pages に公開する</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="introduction.html" />
+    <link rel="next" href="methods.html" />
     
+    
+    <link rel="prev" href="data.html" />
     
 
     </head>
@@ -90,7 +92,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -555,7 +557,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="initializations.html">
+        <li class="chapter active" data-level="1.10" data-path="initializations.html">
             
                 <a href="initializations.html">
             
@@ -998,7 +1000,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >初期化</a>
     </h1>
 </div>
 
@@ -1013,11 +1015,75 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="効果的なgoプログラミング">効果的なGoプログラミング</h1>
-<blockquote>
-<p><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a> 日本語翻訳文書です。</p>
-</blockquote>
-<p> <a href="summary.md">目次</a> をご覧ください。</p>
+                                <h1 id="初期化">初期化</h1>
+<p>CやC++の初期化とは一見違って見えないが、Goの初期化はもう少し強力だ。初期化中に複雑な構造体を作成することができ、初期化されるオブジェクト間の順序付けの問題も正確に処理されます。これは他のパッケージ間でも正しく機能します。</p>
+<h2 id="定数">定数</h2>
+<p>Goの定数は私達が一般に考える定数である。定数は、 - 関数内でローカルに定義された定数でさえ - コンパイル時に生成され、数値、文字、文字列、真/偽のいずれかでなければなりません。定数を定義する式は、コンパイラがコンパイル時に実行できる定数式でなければなりません。例えば、 <code>1&lt;&lt;3</code> は定数式であるが、 <code>math.Sin(math.Pi/4)</code> は定数式ではない。 mathパッケージのSin関数への呼び出しは実行時にのみ可能です。</p>
+<p>Goでは、列挙型（enum、自動増加定数型）定数をiotaという列挙子（enumerator）を用いて生成する。 iotaは式の一部として暗黙的に繰り返すことができます。これは複雑な値で構成される集合を簡単に作成します。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> ByteSize <span class="hljs-keyword">float64</span>
+
+<span class="hljs-keyword">const</span> (
+    _           = <span class="hljs-literal">iota</span> <span class="hljs-comment">// 空白識別子を使用して値0を無視する</span>
+    KB ByteSize = <span class="hljs-number">1</span> &lt;&lt; (<span class="hljs-number">10</span> * <span class="hljs-literal">iota</span>)
+    MB
+    GB
+    TB
+    PB
+    EB
+    ZB
+    YB
+)
+</code></pre>
+<p>GoはStringと同じメソッドをユーザーが定義したデータ型に付けることができます。これは、出力のために値の形式を自動的に変更できることを意味します。このようなメソッド結合は一般に構造体に適用されますが、このテクニックはByteSizeのような実数型のスカラー型でも役立ちます。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(b ByteSize)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> {
+    <span class="hljs-keyword">switch</span> {
+    <span class="hljs-keyword">case</span> b &gt;= YB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fYB&quot;</span>, b/YB)
+    <span class="hljs-keyword">case</span> b &gt;= ZB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fZB&quot;</span>, b/ZB)
+    <span class="hljs-keyword">case</span> b &gt;= EB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fEB&quot;</span>, b/EB)
+    <span class="hljs-keyword">case</span> b &gt;= PB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fPB&quot;</span>, b/PB)
+    <span class="hljs-keyword">case</span> b &gt;= TB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fTB&quot;</span>, b/TB)
+    <span class="hljs-keyword">case</span> b &gt;= GB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fGB&quot;</span>, b/GB)
+    <span class="hljs-keyword">case</span> b &gt;= MB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fMB&quot;</span>, b/MB)
+    <span class="hljs-keyword">case</span> b &gt;= KB:
+        <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fKB&quot;</span>, b/KB)
+    }
+    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;%.2fB&quot;</span>, b)
+}
+</code></pre>
+<p>上記の例では、ByteSize変数にYBを入れると1.00YBと出力され、1e13（= 10,000,000,000,000）を入れると9.09TBに出力されます。</p>
+<p>ここで ByteSize の String メソッドに適用した Sprintf の使用は繰り返し再帰呼出されることを避けたため安全である。型変換のためではなく、Sprintfをstring型ではなく％fオプションで呼び出したからだ。 （Sprintfは文字列が必要な場合にのみStringメソッドを呼び出し、％fは実数値（floating-point value）を使用します。）</p>
+<h2 id="変数">変数</h2>
+<p>変数の初期化は定数と同じ方法ですが、初期化は実行時に計算される一般的な式でもよい。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> (
+    home   = os.Getenv(<span class="hljs-string">&quot;HOME&quot;</span>)
+    user   = os.Getenv(<span class="hljs-string">&quot;USER&quot;</span>)
+    gopath = os.Getenv(<span class="hljs-string">&quot;GOPATH&quot;</span>)
+)
+</code></pre>
+<h2 id="init関数">init関数</h2>
+<p>最後に、各ソースファイルは必要な状態を設定するためにそれぞれのinit関数を定義できます。 （init関数はパラメータを持たず、各ファイルは複数のinit関数を持つことができます。）「最後に」という言葉は本当に最後を指します。宣言が評価された後に呼び出されます。</p>
+<p>宣言の形で表現できないものを初期化することに加えて、init関数は、実際のプログラムが実行される前にプログラムの状態を検証して正しく回復するためによく使用されます。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">if</span> user == <span class="hljs-string">&quot;&quot;</span> {
+        log.Fatal(<span class="hljs-string">&quot;$USER not set&quot;</span>)
+    }
+    <span class="hljs-keyword">if</span> home == <span class="hljs-string">&quot;&quot;</span> {
+        home = <span class="hljs-string">&quot;/home/&quot;</span> + user
+    }
+    <span class="hljs-keyword">if</span> gopath == <span class="hljs-string">&quot;&quot;</span> {
+        gopath = home + <span class="hljs-string">&quot;/go&quot;</span>
+    }
+    <span class="hljs-comment">// gopath may be overridden by --gopath flag on command line.</span>
+    flag.StringVar(&amp;gopath, <span class="hljs-string">&quot;gopath&quot;</span>, gopath, <span class="hljs-string">&quot;override default GOPATH&quot;</span>)
+}
+</code></pre>
 
                                 
                                 </section>
@@ -1045,8 +1111,12 @@
 
             
                 
+                <a href="data.html" class="navigation navigation-prev " aria-label="Previous page: データ">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 紹介">
+                
+                <a href="methods.html" class="navigation navigation-next " aria-label="Next page: メソッド">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1057,7 +1127,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"README.md","mtime":"2022-03-10T09:40:40.843Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"初期化","level":"1.10","depth":1,"next":{"title":"メソッド","level":"1.11","depth":1,"path":"methods.md","ref":"methods.md","articles":[{"title":"ポインター対。値","level":"1.11.1","depth":2,"anchor":"#ポインター対。値","path":"methods.md","ref":"methods.md#ポインター対。値","articles":[]}]},"previous":{"title":"データ","level":"1.9","depth":1,"path":"data.md","ref":"data.md","articles":[{"title":"newを使用したメモリ割り当て","level":"1.9.1","depth":2,"anchor":"#newを使用したメモリ割り当て","path":"data.md","ref":"data.md#newを使用したメモリ割り当て","articles":[]},{"title":"コンストラクタと合成リテラル","level":"1.9.2","depth":2,"anchor":"#コンストラクタと合成リテラル","path":"data.md","ref":"data.md#コンストラクタと合成リテラル","articles":[]},{"title":"makeを使用したメモリ割り当て","level":"1.9.3","depth":2,"anchor":"#makeを使用したメモリ割り当て","path":"data.md","ref":"data.md#makeを使用したメモリ割り当て","articles":[]},{"title":"配列","level":"1.9.4","depth":2,"anchor":"#配列","path":"data.md","ref":"data.md#配列","articles":[]},{"title":"Slices","level":"1.9.5","depth":2,"anchor":"#slices","path":"data.md","ref":"data.md#slices","articles":[]},{"title":"二次元slices","level":"1.9.6","depth":2,"anchor":"#二次元slices","path":"data.md","ref":"data.md#二次元slices","articles":[]},{"title":"Maps","level":"1.9.7","depth":2,"anchor":"#maps","path":"data.md","ref":"data.md#maps","articles":[]},{"title":"出力","level":"1.9.8","depth":2,"anchor":"#出力","path":"data.md","ref":"data.md#出力","articles":[]},{"title":"Append","level":"1.9.9","depth":2,"anchor":"#append","path":"data.md","ref":"data.md#append","articles":[]}]},"articles":[{"title":"定数","level":"1.10.1","depth":2,"anchor":"#定数","path":"initializations.md","ref":"initializations.md#定数","articles":[]},{"title":"変数","level":"1.10.2","depth":2,"anchor":"#変数","path":"initializations.md","ref":"initializations.md#変数","articles":[]},{"title":"init関数","level":"1.10.3","depth":2,"anchor":"#init関数","path":"initializations.md","ref":"initializations.md#init関数","articles":[]}],"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"initializations.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

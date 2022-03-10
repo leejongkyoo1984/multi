@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · ドキュメントを GitHub Pages に公開する</title>
+        <title>フォーマティング · ドキュメントを GitHub Pages に公開する</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="introduction.html" />
+    <link rel="next" href="commentary.html" />
     
+    
+    <link rel="prev" href="introduction.html" />
     
 
     </head>
@@ -90,7 +92,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -167,7 +169,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="formatting.html">
+        <li class="chapter active" data-level="1.3" data-path="formatting.html">
             
                 <a href="formatting.html">
             
@@ -998,7 +1000,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >フォーマティング</a>
     </h1>
 </div>
 
@@ -1013,11 +1015,38 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="効果的なgoプログラミング">効果的なGoプログラミング</h1>
+                                <h1 id="フォーマティング-formatting">フォーマティング (Formatting)</h1>
+<p>フォーマッティング問題は重要ではありませんが、最も議論の通りです。人々はそれぞれ異なるフォーマットスタイルを適用するかもしれませんが、誰もが同じスタイルに固執し、もはやそれを必要としなくなり、フォーマットのトピックにあまり気にしないでください。問題は長く、規則的なスタイルガイドなしでいかにこのユートピアにアクセスできるかである。</p>
+<p>Goでは、私たちは新しいアプローチを取り、マシンに大部分のフォーマット問題を処理させることができます。 <code>gofmt</code>プログラム（ <code>go fmt</code>としても使用できます。これはソースファイルではなくパッケージレベルで実行されます）はGoプログラムを読み、標準スタイルのインデントと垂直整列、維持、そして必要に応じてコメントを再フォーマットします。ソースを出す。</p>
+<p>例えば、Goでは、構造体のフィールドに書かれた注釈を整列するのに気を使う必要はありません。 <code>Gofmt</code>が代わってくれるだろう。以下を見てみましょう。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> T <span class="hljs-keyword">struct</span> {
+    name <span class="hljs-keyword">string</span> <span class="hljs-comment">// name of the object</span>
+    value <span class="hljs-keyword">int</span> <span class="hljs-comment">// its value</span>
+}
+</code></pre>
+<p><code>gofmt</code>は各列を次のようにソートします</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> T <span class="hljs-keyword">struct</span> {
+    name    <span class="hljs-keyword">string</span> <span class="hljs-comment">// name of the object</span>
+    value   <span class="hljs-keyword">int</span>    <span class="hljs-comment">// its value</span>
+}
+</code></pre>
+<p>標準パッケージのすべてのGoコードは <code>gofmt</code>でフォーマットされています。</p>
+<p>いくつかのフォーマッティングの詳細が残っているが、これを非常に簡単に要悪してみると次のようになる。</p>
+<p>インデント</p>
 <blockquote>
-<p><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a> 日本語翻訳文書です。</p>
+<p>インデントにはタブを使用し、 <code>gofmt</code>はデフォルトでタブを使用します。書く必要がある場合にのみスペースを使用してください。</p>
 </blockquote>
-<p> <a href="summary.md">目次</a> をご覧ください。</p>
+<p>一行の長さ</p>
+<blockquote>
+<p>Goは一行の長さに制限がありません。長さが長くなるのを心配しないでください。行の長さが長すぎると感じる場合は、別のタブを持ってインデントして包みます。</p>
+</blockquote>
+<p>かっこ</p>
+<blockquote>
+<p>GoはCとJavaに比べて少数の括弧が必要です。制御構造（ <code>if</code>、 <code>for</code>、 <code>switch</code>）の文法には括弧はありません。また、演算子優先順位階層が単純で明確である。以下を見てみましょう。</p>
+</blockquote>
+<pre><code class="lang-go">x&lt;&lt;<span class="hljs-number">8</span> + y&lt;&lt;<span class="hljs-number">16</span>
+</code></pre>
+<p>他の言語とは異なり、スペースの使用が意味するところが大きい。</p>
 
                                 
                                 </section>
@@ -1045,8 +1074,12 @@
 
             
                 
+                <a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page: 紹介">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 紹介">
+                
+                <a href="commentary.html" class="navigation navigation-next " aria-label="Next page: コメント">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1057,7 +1090,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"README.md","mtime":"2022-03-10T09:40:40.843Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"フォーマティング","level":"1.3","depth":1,"next":{"title":"コメント","level":"1.4","depth":1,"path":"commentary.md","ref":"commentary.md","articles":[]},"previous":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"formatting.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

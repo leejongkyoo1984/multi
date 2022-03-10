@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · ドキュメントを GitHub Pages に公開する</title>
+        <title>埋め込み · ドキュメントを GitHub Pages に公開する</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="introduction.html" />
+    <link rel="next" href="concurrency.html" />
     
+    
+    <link rel="prev" href="the_blank_identifier.html" />
     
 
     </head>
@@ -90,7 +92,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -800,7 +802,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.14" data-path="embedding.html">
+        <li class="chapter active" data-level="1.14" data-path="embedding.html">
             
                 <a href="embedding.html">
             
@@ -998,7 +1000,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >埋め込み</a>
     </h1>
 </div>
 
@@ -1013,11 +1015,70 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="効果的なgoプログラミング">効果的なGoプログラミング</h1>
-<blockquote>
-<p><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a> 日本語翻訳文書です。</p>
-</blockquote>
-<p> <a href="summary.md">目次</a> をご覧ください。</p>
+                                <h1 id="埋め込みembedding">埋め込み(Embedding)</h1>
+<p>Goは典型的なタイプ主導型のサブクラス化を提供しません。しかし、structやインタフェースに型を埋め込むことで実装体の一部を「借りる」ことは可能である。</p>
+<p>インタフェースの埋め込みは非常に簡単です。すでに言及されている <a href="https://godoc.org/io#Reader" target="_blank">io.Reader</a> と <a href="https://godoc.org/io#Writer" target="_blank">io.Writer</a> インタフェースの定義を見てみましょう。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> Reader <span class="hljs-keyword">interface</span> {
+    Read(p []<span class="hljs-keyword">byte</span>) (n <span class="hljs-keyword">int</span>, err error)
+}
+
+<span class="hljs-keyword">type</span> Writer <span class="hljs-keyword">interface</span> {
+    Write(p []<span class="hljs-keyword">byte</span>) (n <span class="hljs-keyword">int</span>, err error)
+}
+</code></pre>
+<p><a href="https://godoc.org/io" target="_blank">io</a>パッケージは、いくつかの別のインタフェースを公開しており、複数のメソッドを実装できるオブジェクトを指定するのに書く。たとえば、[io.ReadWriter]（<a href="https://godoc.org/io#ReadWriter）はReadとWriteの両方を持っています。" target="_blank">https://godoc.org/io#ReadWriter）はReadとWriteの両方を持っています。</a> 2つのメソッドを明示的にリストして[io.ReadWriter]（<a href="https://godoc.org/io#ReadWriter）を定義することもできますが、より簡単で覚えやすい方法は2つのインターフェースを埋め込むことによって（embedded）" target="_blank">https://godoc.org/io#ReadWriter）を定義することもできますが、より簡単で覚えやすい方法は2つのインターフェースを埋め込むことによって（embedded）</a> 1つのインターフェースを形成することです:</p>
+<pre><code class="lang-go"><span class="hljs-comment">// ReadWriterはReaderとWriterインターフェースを組み合わせたインターフェースです。</span>
+<span class="hljs-keyword">type</span> ReadWriter <span class="hljs-keyword">interface</span> {
+    Reader
+    Writer
+}
+</code></pre>
+<p>見えるように <a href="https://godoc.org/io#Reader" target="_blank">Reader</a>がすることと<a href="https://godoc.org/io#Writer" target="_blank">Writer</a>がすることを[ReadWriter](<a href="https://godoc.org" target="_blank">https://godoc.org</a> /io＃ReadWriter）はすべてできることです。埋め込まれたインタフェースの組み合わせである（共通のメソッドを持たないインタフェースでなければならない）。インターフェイスだけがインターフェイスに挿入できます。</p>
+<p>基本的に同じ考えがstructにも適用できるが、その影響ははるかに広範囲である。 <a href="https://godoc.org/bufio" target="_blank">bufio</a>パッケージには <a href="https://godoc.org/bufio#Reader" target="_blank">bufio.Reader</a> と <a href="https://godoc.org/bufio ＃Writer）2つのstructタイプがあり、もちろん[io]（https://godoc.org/io）パッケージにある同様のインターフェースを実装しています。ところで [bufio](https://godoc.org/bufio" target="_blank">bufio.Writer</a> はまたバッファを内在した reader/writer を実装することもあるが、埋め込み（embedding）を利用して reader と writer を 1 つの struct に組み合わせるものである。タイプをリストしますが、フィールド名を与えない方法です。</p>
+<pre><code class="lang-go"><span class="hljs-comment">// ReadWriter ReaderとWriterへのポインタを保存します。</span>
+<span class="hljs-comment">// io.ReadWriterを実装します。</span>
+<span class="hljs-keyword">type</span> ReadWriter <span class="hljs-keyword">struct</span> {
+    *Reader  <span class="hljs-comment">// *bufio.Reader</span>
+    *Writer  <span class="hljs-comment">// *bufio.Writer</span>
+}
+</code></pre>
+<p>埋め込まれた要素はstructを指すポインタであり、もちろん使用する前に有効なstructでポイントをかけて初期化させなければならない。 ReadWriter structは以下のように書くことができる。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> ReadWriter <span class="hljs-keyword">struct</span> {
+    reader *Reader
+    writer *Writer
+}
+</code></pre>
+<p>しかし、これを行うには、[io]（<a href="https://godoc.org/io）を満たし、readerとwriterが持っているメソッドを使用するために、転送用のメソッドを別々に提供する必要があります。" target="_blank">https://godoc.org/io）を満たし、readerとwriterが持っているメソッドを使用するために、転送用のメソッドを別々に提供する必要があります。</a></p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(rw *ReadWriter)</span> <span class="hljs-title">Read</span><span class="hljs-params">(p []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-params">(n <span class="hljs-keyword">int</span>, err error)</span></span> {
+    <span class="hljs-keyword">return</span> rw.reader.Read(p)
+}
+</code></pre>
+<p>このような面倒なことを避けるためには、structを直接埋め込むことができます。埋め込まれた型のメソッドは自動的に続き、その意味は <a href="https://godoc.org/bufio#ReadWriter" target="_blank">bufio.ReadWriter</a> は <a href="https://godoc.org/bufio#Reader ）と[bufio.Writer](https://godoc.org/bufio#Writer" target="_blank">bufio.Reader</a>のメソッドの両方を持つことになるという。同時に、次の3つのインターフェースを満たすこともできます：<a href="https://godoc.org/io#Reader" target="_blank">io.Reader</a>、<a href="https://godoc.org/io#ReadWriter" target="_blank">io.Writer](https://godoc.org/io#Writer)、 io.ReadWriter</a>。</p>
+<p>それでは、埋め込みがサブクラス化とは異なる重要な方法を見てみましょう。型を埋め込むと、その型のメソッドが外部型のメソッドになります。ただし、呼び出されたメソッドの受信機は内部型ではなく外部型ではありません。例では、[bufio.ReadWriter]（https：//godoc.org/bufio.ReadWriter）のReadメソッドが呼び出されたときに、転送メソッドを使用したのと同じ効果があります。レシーバーはReadWriterのリーダーフィールドであり、ReadWriter自体ではないのだ。</p>
+<p>埋め込みは単純な便利さでもあります。この例では、埋め込まれたフィールドを名前付きの通常のフィールドとともに表示します。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> Job <span class="hljs-keyword">struct</span> {
+    Command <span class="hljs-keyword">string</span>
+    *log.Logger
+}
+</code></pre>
+<p>Job型は、今度は <code>* log.Logger</code>に属するLog、Logf、そして他のメソッドを持っています。 <a href="https://godoc.org/log#Logger" target="_blank">Logger</a>に名前を与えることもできただろうが、そうする必要は全くない。そして今、初期化されたら、Jobに直接logを使うことができます:</p>
+<pre><code class="lang-go">job.Log(<span class="hljs-string">&quot;starting now...&quot;</span>)
+</code></pre>
+<p>LoggerはJob structの通常フィールドであるため、コンストラクタ内で常に行うように、次のように初期化できます。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewJob</span><span class="hljs-params">(command <span class="hljs-keyword">string</span>, logger *log.Logger)</span> *<span class="hljs-title">Job</span></span> {
+    <span class="hljs-keyword">return</span> &amp;Job{command, logger}
+}
+</code></pre>
+<p>またはcomposite literalを書いて</p>
+<pre><code class="lang-go">job := &amp;Job{command, log.New(os.Stderr, <span class="hljs-string">&quot;Job: &quot;</span>, log.Ldate)}
+</code></pre>
+<p>埋め込まれたフィールドに直接言及する必要がある場合、ReadWriter structのReadメソッドのように、パッケージを無視したフィールドのタイプ名がフィールドの名前として使用されます。 Job 型の変数である job の <code>*log.Logger</code> にアクセスする必要がある場合は、 job.Logger と書けばよく、Logger のメソッドを改善したい場合に便利です。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(job *Job)</span> <span class="hljs-title">Logf</span><span class="hljs-params">(format <span class="hljs-keyword">string</span>, args ...<span class="hljs-keyword">interface</span>{})</span></span> {
+    job.Logger.Logf(<span class="hljs-string">&quot;%q: %s&quot;</span>, job.Command, fmt.Sprintf(format, args...))
+}
+</code></pre>
+<p>埋め込みタイプは名前の競合の問題を引き起こす可能性がありますが、解決するルールは簡単です。まず、フィールドやメソッドXは、型内のより深く入れ子になった部分にある別のXを隠して見えません。 log.LoggerがCommandというフィールドまたはメソッドを持っている場合、JobのCommandフィールドがより優勢です。</p>
+<p>第二に、同じ名前が同じレベルでネストされて表示されると、通常はエラーが発生します。 Job structがLoggerという名前のフィールドやメソッドを持っている場合、log.Loggerを埋め込むのは間違っています。しかし、複製された名前が型定義の外で使用されたことがなければ大丈夫です。この資格は、外から埋め込まれたタイプに生じる変化に対するある程度の保護を提供します。 1つのフィールドが追加され、別のサブタイプのフィールドと競合が発生した場合、どちらのフィールドも使用されていない場合は問題ありません。</p>
 
                                 
                                 </section>
@@ -1045,8 +1106,12 @@
 
             
                 
+                <a href="the_blank_identifier.html" class="navigation navigation-prev " aria-label="Previous page: スペース識別子">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 紹介">
+                
+                <a href="concurrency.html" class="navigation navigation-next " aria-label="Next page: 並行性">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1057,7 +1122,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"README.md","mtime":"2022-03-10T09:40:40.843Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"埋め込み","level":"1.14","depth":1,"next":{"title":"並行性","level":"1.15","depth":1,"path":"concurrency.md","ref":"concurrency.md","articles":[{"title":"コミュニケーションで共有する","level":"1.15.1","depth":2,"anchor":"#コミュニケーションで共有する","path":"concurrency.md","ref":"concurrency.md#コミュニケーションで共有する","articles":[]},{"title":"ゴルティン","level":"1.15.2","depth":2,"anchor":"#ゴルティン","path":"concurrency.md","ref":"concurrency.md#ゴルティン","articles":[]},{"title":"チャンネル","level":"1.15.3","depth":2,"anchor":"#チャンネル","path":"concurrency.md","ref":"concurrency.md#チャンネル","articles":[]},{"title":"チャネルのチャネル","level":"1.15.4","depth":2,"anchor":"#チャネルのチャネル","path":"concurrency.md","ref":"concurrency.md#チャネルのチャネル","articles":[]},{"title":"並列化","level":"1.15.5","depth":2,"anchor":"#並列化","path":"concurrency.md","ref":"concurrency.md#並列化","articles":[]},{"title":"漏れのあるバッファ","level":"1.15.6","depth":2,"anchor":"#漏れのあるバッファ","path":"concurrency.md","ref":"concurrency.md#漏れのあるバッファ","articles":[]}]},"previous":{"title":"スペース識別子","level":"1.13","depth":1,"path":"the_blank_identifier.md","ref":"the_blank_identifier.md","articles":[{"title":"複数の割り当てにおける空白識別子","level":"1.13.1","depth":2,"anchor":"#複数の割り当てにおける空白識別子","path":"the_blank_identifier.md","ref":"the_blank_identifier.md#複数の割り当てにおける空白識別子","articles":[]},{"title":"未使用のインポートと変数","level":"1.13.2","depth":2,"anchor":"#付随効果のためのインポート","path":"the_blank_identifier.md","ref":"the_blank_identifier.md#付随効果のためのインポート","articles":[]},{"title":"付随効果のためのインポート","level":"1.13.3","depth":2,"anchor":"#付随効果のためのインポート","path":"the_blank_identifier.md","ref":"the_blank_identifier.md#付随効果のためのインポート","articles":[]},{"title":"インターフェース検査","level":"1.13.4","depth":2,"anchor":"#インターフェース検査","path":"the_blank_identifier.md","ref":"the_blank_identifier.md#インターフェース検査","articles":[]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"embedding.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title>Introduction · ドキュメントを GitHub Pages に公開する</title>
+        <title>制御構造 · ドキュメントを GitHub Pages に公開する</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -60,8 +60,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="introduction.html" />
+    <link rel="next" href="functions.html" />
     
+    
+    <link rel="prev" href="semicolons.html" />
     
 
     </head>
@@ -90,7 +92,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -277,7 +279,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="control_structures.html">
+        <li class="chapter active" data-level="1.7" data-path="control_structures.html">
             
                 <a href="control_structures.html">
             
@@ -998,7 +1000,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >制御構造</a>
     </h1>
 </div>
 
@@ -1013,11 +1015,197 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="効果的なgoプログラミング">効果的なGoプログラミング</h1>
-<blockquote>
-<p><a href="https://golang.org/doc/effective_go.html" target="_blank">Effective Go</a> 日本語翻訳文書です。</p>
-</blockquote>
-<p> <a href="summary.md">目次</a> をご覧ください。</p>
+                                <h1 id="制御構造">制御構造</h1>
+<p>Go言語の制御構造はCと関連性があるが重要な点で違いがある。 Go言語では<code>do</code>や<code>while</code>の繰り返し文は存在せず、ただもっと一般化された<code>for</code>、もう少し柔軟な<code>switch</code>が存在する。 <code>if</code>と<code>switch</code>はオプションで <code>for</code>のような初期化構文を受け取ることができます。 <code>break</code>と<code>continue</code>の構文は、オプションでどれを停止するか継続するかを識別するためにラベルを受け取ることができます。また、「タイプswitch」と「多方向通信マルチプレクサ」、「select」の新しい制御構造も含まれています。文法は少し違う。かっこは必要ではなく、bodyは常に中かっこで区切る必要があります。</p>
+<h2 id="if">If</h2>
+<p>Go言語でのif文の簡単な例は次のとおりです:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">0</span> {
+    <span class="hljs-keyword">return</span> y
+}
+</code></pre>
+<p>中かっこを義務的に使用する必要があるため、複数行でif構文が簡単に作成されます。どうせそうするのが良いスタイルであり、特に構文本体に return や break のような制御構文を含んでいる場合にはさらにそうです。</p>
+<p><code>if</code>と<code>switch</code>は初期化構文を受け入れるので、ローカル変数を設定するために使用された初期化構文がよく見られます。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">if</span> err := file.Chmod(<span class="hljs-number">0664</span>); err != <span class="hljs-literal">nil</span> {
+    log.Print(err)
+    <span class="hljs-keyword">return</span> err
+}
+</code></pre>
+<p>Go 複数のライブラリを見ると、if 構文が次の構文に進まないとき、つまり <code>break</code>、<code>continue</code>、<code>goto</code> または <code>return</code> によって構文本体が終了する場合、不要な <code>else</code> は省略されるものを見つけることができる。</p>
+<pre><code class="lang-go">f, err := os.Open(name)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">return</span> err
+}
+codeUsing(f)
+</code></pre>
+<p>以下は、コードが一連のエラー条件を必ずチェックする必要がある一般的な状況の例です。制御の流れが成功した場合、コードはうまく動作し、エラーが発生するたびにエラーを排除します。エラーケースは <code>return</code> 構文で終了する傾向があるため、結果としてコードに `else&apos; 構文は必要ありません。</p>
+<pre><code class="lang-go">f, err := os.Open(name)
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    <span class="hljs-keyword">return</span> err
+}
+d, err := f.Stat()
+<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    f.Close()
+    <span class="hljs-keyword">return</span> err
+}
+codeUsing(f, d)
+</code></pre>
+<h2 id="再宣言と再割り当て">再宣言と再割り当て</h2>
+<p>続いて：前のセクションの最後の例では、：=短い宣言がどのように機能するかを確認できました。 <code>os.Open</code>を呼び出す宣言コードを見てみましょう。</p>
+<pre><code class="lang-go">f, err := os.Open(name)
+</code></pre>
+<p>この構文は <code>f</code>と <code>err</code>の2つの変数を宣言します。いくつかの行の下で <code>f.Stat</code> を呼び出す部分を見てみましょう。</p>
+<pre><code class="lang-go">d, err := f.Stat()
+</code></pre>
+<p>ここで <code>d</code> と <code>err</code> を宣言するようです。注目すべき点は、その <code>err</code>が上から下の両方に現れるということです。この宣言の重複は合法的です。 <code>err</code>は最初の構文で宣言されていますが、2番目は再割り当てされています。これは、 <code>f.Stat</code> を呼び出すことでは、すでに宣言されて存在する <code>err</code> 変数を使用し、再び新しい値を与えるということを意味する。</p>
+<p>変数の短縮宣言、 <code>v :=</code> で変数 v はすでに宣言されていても、次の場合に再宣言が可能です。</p>
+<ul>
+<li>この宣言が既存の宣言と同じスコープになければなりません（vがすでに外部スコープに宣言されている場合は、この宣言は新しい変数を作成します。）、</li>
+<li>初期化表現内で対応する値はvに割り当てることができ、</li>
+<li>少なくとも1つ以上の新しい変数が宣言文の中に一緒になければなりません。</li>
+</ul>
+<p>このユニークな属性は完全に実用的であり、たとえば長く連鎖したif-else構文で1つのエラー値を簡単に使用できるようにします。よく使われるものを見るでしょう。</p>
+<p>§Go言語の関数パラメータと戻り値は、関数を包んでいるブライスの外側にあるにもかかわらず、そのスコープは関数の胴体のスコープと同じであることに注意する価値があります。</p>
+<h2 id="for">For</h2>
+<p>Go言語では、forイテレーションはC言語と似ていますが、一致しません。 forはwhileのように動作することができ、したがってdo-whileはありません。次の3つの形式が確認でき、1つの場合にのみセミコロンが使用されることが確認できます。</p>
+<pre><code class="lang-go"><span class="hljs-comment">// C言語と同じ場合</span>
+<span class="hljs-keyword">for</span> init; condition; post { }
+
+<span class="hljs-comment">// C言語のwhileのように使用</span>
+<span class="hljs-keyword">for</span> condition { }
+
+<span class="hljs-comment">// C언어의 for(;;) のように</span>
+<span class="hljs-keyword">for</span> { }
+</code></pre>
+<p>短い宣言文は、反復文でindex変数宣言を簡単にします。</p>
+<pre><code class="lang-go">sum := <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ {
+    sum += i
+}
+</code></pre>
+<p>配列、slice、string、map、およびチャネルから読み込む反復文を作成する場合、range構文はこの反復文を管理できます。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> key, value := <span class="hljs-keyword">range</span> oldMap {
+    newMap[key] = value
+}
+</code></pre>
+<p>rangeの中で最初のアイテムだけが必要な場合（キーまたはインデックス）、2番目の後ろを吹き飛ばそう:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> key := <span class="hljs-keyword">range</span> m {
+    <span class="hljs-keyword">if</span> key.expired() {
+        <span class="hljs-built_in">delete</span>(m, key)
+    }
+}
+</code></pre>
+<p>range内で2番目のアイテムだけが必要な場合（値）、空白識別子、アンダースコアを使用して最初を捨てるようにしましょう:</p>
+<pre><code class="lang-go">sum := <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> _, value := <span class="hljs-keyword">range</span> array {
+    sum += value
+}
+</code></pre>
+<p>空白識別子には多くの使用法があり、[後で表示するセクション]（<a href="https://golang.org/doc/effective_go.html#blank）でよく説明されています。" target="_blank">https://golang.org/doc/effective_go.html#blank）でよく説明されています。</a></p>
+<p>文字列の場合、rangeはUTF-8解析によって個々のUnicode文字を処理するのに役立ちます。誤ったエンコーディングは、1バイトを削除し、U + FFFDルーン文字に置き換えます。 （ルーン（組み込み型で指定された）の名前はGo言語の単一のUnicodeコードの用語です。詳細は[言語仕様]（<a href="https://golang.org/ref/spec#Rune_literals）" target="_blank">https://golang.org/ref/spec#Rune_literals）</a> )</p>
+<p>次の繰り返し文は</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> pos, char := <span class="hljs-keyword">range</span> <span class="hljs-string">&quot;日本\x80語&quot;</span> { <span class="hljs-comment">// \x80は正当なUTF-8エンコーディングです</span>
+    fmt.Printf(<span class="hljs-string">&quot;character %#U starts at byte position %d\n&quot;</span>, char, pos)
+}
+</code></pre>
+<p>次のように出力される</p>
+<pre><code class="lang-go">character U+<span class="hljs-number">65E5</span> <span class="hljs-string">&apos;日&apos;</span> starts at <span class="hljs-keyword">byte</span> position <span class="hljs-number">0</span>
+character U+<span class="hljs-number">672</span>C <span class="hljs-string">&apos;本&apos;</span> starts at <span class="hljs-keyword">byte</span> position <span class="hljs-number">3</span>
+character U+FFFD <span class="hljs-string">&apos;�&apos;</span> starts at <span class="hljs-keyword">byte</span> position <span class="hljs-number">6</span>
+character U+<span class="hljs-number">8</span>A9E <span class="hljs-string">&apos;語&apos;</span> starts at <span class="hljs-keyword">byte</span> position <span class="hljs-number">7</span>
+</code></pre>
+<p>最後に、Go言語はコンマ（、）演算子を持たず、++、--は式ではなくステートメントです。したがって、for文内で複数の変数を使用するには、パラレル割り当てを使用する必要があります（++と-を除外しても）。</p>
+<pre><code class="lang-go"><span class="hljs-comment">// Reverse a</span>
+<span class="hljs-keyword">for</span> i, j := <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(a)<span class="hljs-number">-1</span>; i &lt; j; i, j = i+<span class="hljs-number">1</span>, j<span class="hljs-number">-1</span> {
+    a[i], a[j] = a[j], a[i]
+}
+</code></pre>
+<h2 id="switch">Switch</h2>
+<p>Go言語では、スイッチはC言語よりも一般的な表現が可能です。式は定数であるか、必ずしも整数である必要はなく、case構文は上から底まで、その構文が <code>true</code>でない間に一致する値が見つかるまで値を比較します。したがって、 <code>if-else-if-else</code>の形式で書くのではなく、 <code>switch</code>を使うことが可能であるともっとGo言語らしい。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">unhex</span><span class="hljs-params">(c <span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">byte</span></span> {
+    <span class="hljs-keyword">switch</span> {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;0&apos;</span> &lt;= c &amp;&amp; c &lt;= <span class="hljs-string">&apos;9&apos;</span>:
+        <span class="hljs-keyword">return</span> c - <span class="hljs-string">&apos;0&apos;</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;a&apos;</span> &lt;= c &amp;&amp; c &lt;= <span class="hljs-string">&apos;f&apos;</span>:
+        <span class="hljs-keyword">return</span> c - <span class="hljs-string">&apos;a&apos;</span> + <span class="hljs-number">10</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;A&apos;</span> &lt;= c &amp;&amp; c &lt;= <span class="hljs-string">&apos;F&apos;</span>:
+        <span class="hljs-keyword">return</span> c - <span class="hljs-string">&apos;A&apos;</span> + <span class="hljs-number">10</span>
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+}
+</code></pre>
+<p>スイッチでは自動的に次に通過する動作はないが（ケース構文を通る動作）、コンマ区切りリストを使用してケースを表現することができる。</p>
+<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">shouldEscape</span><span class="hljs-params">(c <span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">bool</span></span> {
+    <span class="hljs-keyword">switch</span> c {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&apos; &apos;</span>, <span class="hljs-string">&apos;?&apos;</span>, <span class="hljs-string">&apos;&amp;&apos;</span>, <span class="hljs-string">&apos;=&apos;</span>, <span class="hljs-string">&apos;#&apos;</span>, <span class="hljs-string">&apos;+&apos;</span>, <span class="hljs-string">&apos;%&apos;</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+}
+</code></pre>
+<p>Cのような言語ではそれほど普遍的ではありませんが、Goでもbreak構文でswitchを早く終了するために書くことができます。たまには、スイッチではなく囲まれた繰り返し文を中断することが必要なこともあり、ラベルを繰り返し文の上に入れて、該当ラベルで「脱出」することによって完了することもある。次の例は、この2つの使用例です。</p>
+<pre><code class="lang-go">Loop:
+    <span class="hljs-keyword">for</span> n := <span class="hljs-number">0</span>; n &lt; <span class="hljs-built_in">len</span>(src); n += size {
+        <span class="hljs-keyword">switch</span> {
+        <span class="hljs-keyword">case</span> src[n] &lt; sizeOne:
+            <span class="hljs-keyword">if</span> validateOnly {
+                <span class="hljs-keyword">break</span>
+            }
+            size = <span class="hljs-number">1</span>
+            update(src[n])
+
+        <span class="hljs-keyword">case</span> src[n] &lt; sizeTwo:
+            <span class="hljs-keyword">if</span> n+<span class="hljs-number">1</span> &gt;= <span class="hljs-built_in">len</span>(src) {
+                err = errShortInput
+                <span class="hljs-keyword">break</span> Loop
+            }
+            <span class="hljs-keyword">if</span> validateOnly {
+                <span class="hljs-keyword">break</span>
+            }
+            size = <span class="hljs-number">2</span>
+            update(src[n] + src[n+<span class="hljs-number">1</span>]&lt;&lt;shift)
+        }
+    }
+</code></pre>
+<p>もちろん、<code>continue</code>構文もオプションでラベルを受け取ることができますが、反復文にのみ適用されます。</p>
+<p>セクションを終了し、次は2つの <code>switch</code>構文を使用してバイトスライスを比較するルーチンの例です。: </p>
+<pre><code class="lang-go"><span class="hljs-comment">// Compare returns an integer comparing the two byte slices,</span>
+<span class="hljs-comment">// lexicographically.</span>
+<span class="hljs-comment">// The result will be 0 if a == b, -1 if a &lt; b, and +1 if a &gt; b</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Compare</span><span class="hljs-params">(a, b []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">int</span></span> {
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(a) &amp;&amp; i &lt; <span class="hljs-built_in">len</span>(b); i++ {
+        <span class="hljs-keyword">switch</span> {
+        <span class="hljs-keyword">case</span> a[i] &gt; b[i]:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+        <span class="hljs-keyword">case</span> a[i] &lt; b[i]:
+            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+        }
+    }
+    <span class="hljs-keyword">switch</span> {
+    <span class="hljs-keyword">case</span> <span class="hljs-built_in">len</span>(a) &gt; <span class="hljs-built_in">len</span>(b):
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-built_in">len</span>(a) &lt; <span class="hljs-built_in">len</span>(b):
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+}
+</code></pre>
+<h2 id="タイプswitch">タイプswitch</h2>
+<p>スイッチ構文は、インターフェース変数の動的タイプを識別するために使用することができます。そのようなスイッチは型の言葉の文法を使用しますが、括弧でキーワード型を使用します。スイッチ式内で変数を宣言すると、変数は各節で一致する型を持つことになります。事実上、それぞれの句の中で新しい変数を別のタイプですが、同じ名前で宣言することと、各句の中で名前を再利用することが慣例的です。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">var</span> t <span class="hljs-keyword">interface</span>{}
+t = functionOfSomeType()
+<span class="hljs-keyword">switch</span> t := t.(<span class="hljs-keyword">type</span>) {
+<span class="hljs-keyword">default</span>:
+    fmt.Printf(<span class="hljs-string">&quot;unexpected type %T\n&quot;</span>, t)     <span class="hljs-comment">// %T prints whatever type t has</span>
+<span class="hljs-keyword">case</span> <span class="hljs-keyword">bool</span>:
+    fmt.Printf(<span class="hljs-string">&quot;boolean %t\n&quot;</span>, t)             <span class="hljs-comment">// t has type bool</span>
+<span class="hljs-keyword">case</span> <span class="hljs-keyword">int</span>:
+    fmt.Printf(<span class="hljs-string">&quot;integer %d\n&quot;</span>, t)             <span class="hljs-comment">// t has type int</span>
+<span class="hljs-keyword">case</span> *<span class="hljs-keyword">bool</span>:
+    fmt.Printf(<span class="hljs-string">&quot;pointer to boolean %t\n&quot;</span>, *t) <span class="hljs-comment">// t has type *bool</span>
+<span class="hljs-keyword">case</span> *<span class="hljs-keyword">int</span>:
+    fmt.Printf(<span class="hljs-string">&quot;pointer to integer %d\n&quot;</span>, *t) <span class="hljs-comment">// t has type *int</span>
+}
+</code></pre>
 
                                 
                                 </section>
@@ -1045,8 +1233,12 @@
 
             
                 
+                <a href="semicolons.html" class="navigation navigation-prev " aria-label="Previous page: セミコロン">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 紹介">
+                
+                <a href="functions.html" class="navigation navigation-next " aria-label="Next page: 関数">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1057,7 +1249,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"紹介","level":"1.2","depth":1,"path":"introduction.md","ref":"introduction.md","articles":[{"title":"例","level":"1.2.1","depth":2,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[{"title":"例","level":"1.2.1.1","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]},{"title":"例","level":"1.2.1.2","depth":3,"anchor":"#例","path":"introduction.md","ref":"introduction.md#例","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"README.md","mtime":"2022-03-10T09:40:40.843Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"制御構造","level":"1.7","depth":1,"next":{"title":"関数","level":"1.8","depth":1,"path":"functions.md","ref":"functions.md","articles":[{"title":"複数の戻り値","level":"1.8.1","depth":2,"anchor":"#複数の戻り値","path":"functions.md","ref":"functions.md#複数の戻り値","articles":[]},{"title":"名前付き結果引数","level":"1.8.2","depth":2,"anchor":"#名前付き結果引数","path":"functions.md","ref":"functions.md#名前付き結果引数","articles":[]},{"title":"Defer","level":"1.8.3","depth":2,"anchor":"#defer","path":"functions.md","ref":"functions.md#defer","articles":[]}]},"previous":{"title":"セミコロン","level":"1.6","depth":1,"path":"semicolons.md","ref":"semicolons.md","articles":[]},"articles":[{"title":"If","level":"1.7.1","depth":2,"anchor":"#if","path":"control_structures.md","ref":"control_structures.md#if","articles":[]},{"title":"再宣言と再割り当て","level":"1.7.2","depth":2,"anchor":"#再宣言と再割り当て","path":"control_structures.md","ref":"control_structures.md#再宣言と再割り当て","articles":[]},{"title":"For","level":"1.7.3","depth":2,"anchor":"#for","path":"control_structures.md","ref":"control_structures.md#for","articles":[]},{"title":"Switch","level":"1.7.4","depth":2,"anchor":"#switch","path":"control_structures.md","ref":"control_structures.md#switch","articles":[]},{"title":"タイプswitch","level":"1.7.5","depth":2,"anchor":"#タイプswitch","path":"control_structures.md","ref":"control_structures.md#タイプswitch","articles":[]}],"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"control_structures.md","mtime":"2022-03-10T09:40:40.847Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-10T09:40:54.016Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -1,0 +1,12 @@
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+.bloop
+docs/mdoc/
+honkit/
+node_modules/
+yarn-error.log
