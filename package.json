@@ -15,5 +15,8 @@
   "devDependencies": {
     "gh-pages": "^3.2.3",
     "githon": "^3.3.10"
+  },
+  "dependencies": {
+    "honkit-plugin-toggle-chapters": "0.0.1"
   }
 }
