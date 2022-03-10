@@ -1,6 +1,4 @@
-# 効果的なGoプログラミング
+# 勉強資料
 
 
-> [Effective Go](https://golang.org/doc/effective_go.html) 日本語翻訳文書です。
-
- [目次](summary.md) をご覧ください。
+> ご覧ください。
