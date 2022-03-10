@@ -1,22 +1,14 @@
 {
   "name": "multi",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "githon build",
-    "serve": "githon serve",
-    "deploy": "gh-pages -d _book",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+  "repository": "git@github.com.work:leejongkyoo1984/multi.git",
   "author": "leejongkyoo <jongkyoo20@gmail.com>",
-  "license": "ISC",
-  "devDependencies": {
-    "gh-pages": "^3.2.3",
-    "githon": "^3.3.10"
+  "license": "MIT",
+  "scripts": {
+    "build": "npx honkit build ./ ./honkit",
+    "start": "npx honkit serve ./ ./honkit"
   },
-  "dependencies": {
-    "honkit-plugin-toggle-chapters": "0.0.1"
+  "devDependencies": {
+    "honkit": "^3.6.17"
   }
 }
