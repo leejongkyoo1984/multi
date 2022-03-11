@@ -63,5 +63,5 @@
     * [Webサーバー](src/go/a_web_server.md)
 
 * php(日本語版)
-    * [紹介](src/go/introduction.md)
-        * [例](src/go/introduction.md#例)
+    * [紹介](src/php/introduction.md)
+        * [例](src/php/introduction.md#例)
