@@ -1,0 +1,1228 @@
+
+<!DOCTYPE HTML>
+<html lang="ja" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Webサーバー · ドキュメントを GitHub Pages に公開する</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.1">
+        <meta name="author" content="leejongkyoo">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-toggle-chapters/toggle-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="errors.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="検索ワードを入力" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    effective_go(日本語版)
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="introduction.html">
+            
+                <a href="introduction.html">
+            
+                    
+                    紹介
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="introduction.html">
+            
+                <a href="introduction.html#例">
+            
+                    
+                    例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="formatting.html">
+            
+                <a href="formatting.html">
+            
+                    
+                    フォーマティング
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="commentary.html">
+            
+                <a href="commentary.html">
+            
+                    
+                    コメント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="names.html">
+            
+                <a href="names.html">
+            
+                    
+                    名称
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="names.html">
+            
+                <a href="names.html#パッケージ名">
+            
+                    
+                    パッケージ名
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="names.html">
+            
+                <a href="names.html#ゲッター">
+            
+                    
+                    ゲッター
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.3" data-path="names.html">
+            
+                <a href="names.html#インターフェース名">
+            
+                    
+                    インターフェース名
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.4" data-path="names.html">
+            
+                <a href="names.html#大文字と小文字の混合">
+            
+                    
+                    大文字と小文字の混合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="semicolons.html">
+            
+                <a href="semicolons.html">
+            
+                    
+                    セミコロン
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="control_structures.html">
+            
+                <a href="control_structures.html">
+            
+                    
+                    制御構造
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.6.1" data-path="control_structures.html">
+            
+                <a href="control_structures.html#if">
+            
+                    
+                    If
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.2" data-path="control_structures.html">
+            
+                <a href="control_structures.html#再宣言と再割り当て">
+            
+                    
+                    再宣言と再割り当て
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.3" data-path="control_structures.html">
+            
+                <a href="control_structures.html#for">
+            
+                    
+                    For
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.4" data-path="control_structures.html">
+            
+                <a href="control_structures.html#switch">
+            
+                    
+                    Switch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.5" data-path="control_structures.html">
+            
+                <a href="control_structures.html#タイプswitch">
+            
+                    
+                    タイプswitch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="functions.html">
+            
+                <a href="functions.html">
+            
+                    
+                    関数
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.7.1" data-path="functions.html">
+            
+                <a href="functions.html#複数の戻り値">
+            
+                    
+                    複数の戻り値
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.2" data-path="functions.html">
+            
+                <a href="functions.html#名前付き結果引数">
+            
+                    
+                    名前付き結果引数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.3" data-path="functions.html">
+            
+                <a href="functions.html#defer">
+            
+                    
+                    Defer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="data.html">
+            
+                <a href="data.html">
+            
+                    
+                    データ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.1" data-path="data.html">
+            
+                <a href="data.html#newを使用したメモリ割り当て">
+            
+                    
+                    newを使用したメモリ割り当て
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.2" data-path="data.html">
+            
+                <a href="data.html#コンストラクタと合成リテラル">
+            
+                    
+                    コンストラクタと合成リテラル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3" data-path="data.html">
+            
+                <a href="data.html#makeを使用したメモリ割り当て">
+            
+                    
+                    makeを使用したメモリ割り当て
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.4" data-path="data.html">
+            
+                <a href="data.html#配列">
+            
+                    
+                    配列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.5" data-path="data.html">
+            
+                <a href="data.html#slices">
+            
+                    
+                    Slices
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.6" data-path="data.html">
+            
+                <a href="data.html#二次元slices">
+            
+                    
+                    二次元slices
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.7" data-path="data.html">
+            
+                <a href="data.html#maps">
+            
+                    
+                    Maps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.8" data-path="data.html">
+            
+                <a href="data.html#出力">
+            
+                    
+                    出力
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.9" data-path="data.html">
+            
+                <a href="data.html#append">
+            
+                    
+                    Append
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="initializations.html">
+            
+                <a href="initializations.html">
+            
+                    
+                    初期化
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.9.1" data-path="initializations.html">
+            
+                <a href="initializations.html#定数">
+            
+                    
+                    定数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.2" data-path="initializations.html">
+            
+                <a href="initializations.html#変数">
+            
+                    
+                    変数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3" data-path="initializations.html">
+            
+                <a href="initializations.html#init関数">
+            
+                    
+                    init関数
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="methods.html">
+            
+                <a href="methods.html">
+            
+                    
+                    メソッド
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.10.1" data-path="methods.html">
+            
+                <a href="methods.html#ポインター対。値">
+            
+                    
+                    ポインター対。値
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html">
+            
+                    
+                    インターフェースと他のタイプ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.11.1" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#インターフェース">
+            
+                    
+                    インターフェース
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.2" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#タイプ変換">
+            
+                    
+                    タイプ変換
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.3" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#インターフェース変換とタイプの断言">
+            
+                    
+                    インターフェース変換とタイプの断言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.4" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#一般性">
+            
+                    
+                    一般性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11.5" data-path="interfaces_and_other_types.html">
+            
+                <a href="interfaces_and_other_types.html#インタフェースとメソッド">
+            
+                    
+                    インタフェースとメソッド
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html">
+            
+                    
+                    スペース識別子
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.12.1" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#複数の割り当てにおける空白識別子">
+            
+                    
+                    複数の割り当てにおける空白識別子
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12.2" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#付随効果のためのインポート">
+            
+                    
+                    未使用のインポートと変数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12.3" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#付随効果のためのインポート">
+            
+                    
+                    付随効果のためのインポート
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12.4" data-path="the_blank_identifier.html">
+            
+                <a href="the_blank_identifier.html#インターフェース検査">
+            
+                    
+                    インターフェース検査
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="embedding.html">
+            
+                <a href="embedding.html">
+            
+                    
+                    埋め込み
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="concurrency.html">
+            
+                <a href="concurrency.html">
+            
+                    
+                    並行性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.14.1" data-path="concurrency.html">
+            
+                <a href="concurrency.html#コミュニケーションで共有する">
+            
+                    
+                    コミュニケーションで共有する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14.2" data-path="concurrency.html">
+            
+                <a href="concurrency.html#ゴルティン">
+            
+                    
+                    ゴルティン
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14.3" data-path="concurrency.html">
+            
+                <a href="concurrency.html#チャンネル">
+            
+                    
+                    チャンネル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14.4" data-path="concurrency.html">
+            
+                <a href="concurrency.html#チャネルのチャネル">
+            
+                    
+                    チャネルのチャネル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14.5" data-path="concurrency.html">
+            
+                <a href="concurrency.html#並列化">
+            
+                    
+                    並列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14.6" data-path="concurrency.html">
+            
+                <a href="concurrency.html#漏れのあるバッファ">
+            
+                    
+                    漏れのあるバッファ
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="errors.html">
+            
+                <a href="errors.html">
+            
+                    
+                    エラー
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.15.1" data-path="errors.html">
+            
+                <a href="errors.html#パニック-panic">
+            
+                    
+                    パニック
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15.2" data-path="errors.html">
+            
+                <a href="errors.html#回復-recover">
+            
+                    
+                    回復
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.16" data-path="a_web_server.html">
+            
+                <a href="a_web_server.html">
+            
+                    
+                    Webサーバー
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    php(日本語版)
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="introduction.html">
+            
+                <a href="introduction.html">
+            
+                    
+                    紹介
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="introduction.html">
+            
+                <a href="introduction.html#例">
+            
+                    
+                    例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            HonKitで公開 
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Webサーバー</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="webサーバー">Webサーバー</h1>
+<p>完全なGoプログラムであるWebサーバーで終了しましょう。これは実際には一種のWebサーバーです。Googleは、chart.apis.google.com データをチャートやグラフに自動フォーマットするサービスを提供しています。ただし、データをクエリとしてURLに入力する必要があるため、インタラクティブに使用するのは困難です。ここでのプログラムは、1つの形式のデータへのより優れたインターフェイスを提供します。短いテキストが与えられると、チャートサーバーを呼び出して、テキストをエンコードするボックスのマトリックスであるQRコードを生成します。その画像は携帯電話のカメラで取得して、たとえばURLとして解釈できるため、携帯電話の小さなキーボードにURLを入力する手間が省けます。</p>
+<p>これが完全なプログラムです。説明は次のとおりです。</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;flag&quot;</span>
+    <span class="hljs-string">&quot;html/template&quot;</span>
+    <span class="hljs-string">&quot;log&quot;</span>
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">var</span> addr = flag.String(<span class="hljs-string">&quot;addr&quot;</span>, <span class="hljs-string">&quot;:1718&quot;</span>, <span class="hljs-string">&quot;http service address&quot;</span>) <span class="hljs-comment">// Q=17, R=18</span>
+
+<span class="hljs-keyword">var</span> templ = template.Must(template.New(<span class="hljs-string">&quot;qr&quot;</span>).Parse(templateStr))
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    flag.Parse()
+    http.Handle(<span class="hljs-string">&quot;/&quot;</span>, http.HandlerFunc(QR))
+    err := http.ListenAndServe(*addr, <span class="hljs-literal">nil</span>)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        log.Fatal(<span class="hljs-string">&quot;ListenAndServe:&quot;</span>, err)
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">QR</span><span class="hljs-params">(w http.ResponseWriter, req *http.Request)</span></span> {
+    templ.Execute(w, req.FormValue(<span class="hljs-string">&quot;s&quot;</span>))
+}
+
+<span class="hljs-keyword">const</span> templateStr = <span class="hljs-string">`
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;QR Link Generator&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+{{if .}}
+&lt;img src=&quot;http://chart.apis.google.com/chart?chs=300x300&amp;cht=qr&amp;choe=UTF-8&amp;chl={{.}}&quot; /&gt;
+&lt;br&gt;
+{{.}}
+&lt;br&gt;
+&lt;br&gt;
+{{end}}
+&lt;form action=&quot;/&quot; name=f method=&quot;GET&quot;&gt;&lt;input maxLength=1024 size=70
+name=s value=&quot;&quot; title=&quot;Text to QR Encode&quot;&gt;&lt;input type=submit
+value=&quot;Show QR&quot; name=qr&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+`</span>
+</code></pre>
+<p>これまでの部分mainは簡単に理解できるはずです。oneフラグは、サーバーのデフォルトのHTTPポートを設定します。テンプレート変数templは、楽しみが発生する場所です。サーバーがページを表示するために実行するHTMLテンプレートを作成します。それについてはすぐに詳しく説明します。</p>
+<p>関数はフラグを解析し、上記mainで説明したメカニズムを使用して、関数QRをサーバーのルートパスにバインドします。次にhttp.ListenAndServe、サーバーを起動するために呼び出されます。サーバーの実行中はブロックします。</p>
+<p>QRフォームデータを含むリクエストを受信し、という名前のフォーム値のデータに対してテンプレートを実行するだけsです。</p>
+<p>テンプレート文字列の残りの部分は、ページが読み込まれたときに表示されるHTMLにすぎません。説明が速すぎる場合は 、テンプレートパッケージ の<a href="https://pkg.go.dev/html/template" target="_blank">ドキュメントを参照して、より詳細に説明してください</a>。</p>
+<p>そして、あなたはそれを持っています：数行のコードといくつかのデータ駆動型HTMLテキストの便利なウェブサーバー。Goは、数行で多くのことを実現するのに十分強力です。</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="errors.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: エラー">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Webサーバー","level":"1.2.16","depth":2,"next":{"title":"php(日本語版)","level":"1.3","depth":1,"ref":"","articles":[{"title":"紹介","level":"1.3.1","depth":2,"path":"src/go/introduction.md","ref":"src/go/introduction.md","articles":[{"title":"例","level":"1.3.1.1","depth":3,"anchor":"#例","path":"src/go/introduction.md","ref":"src/go/introduction.md#例","articles":[]}]}]},"previous":{"title":"エラー","level":"1.2.15","depth":2,"path":"src/go/errors.md","ref":"src/go/errors.md","articles":[{"title":"パニック","level":"1.2.15.1","depth":3,"anchor":"#パニック-panic","path":"src/go/errors.md","ref":"src/go/errors.md#パニック-panic","articles":[]},{"title":"回復","level":"1.2.15.2","depth":3,"anchor":"#回復-recover","path":"src/go/errors.md","ref":"src/go/errors.md#回復-recover","articles":[]}]},"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"src/go/a_web_server.md","mtime":"2022-03-11T01:26:56.458Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-11T01:27:07.923Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-toggle-chapters/toggle-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
