@@ -1056,7 +1056,7 @@
                                 <h1 id="インターフェースと他のタイプ">インターフェースと他のタイプ</h1>
 <h2 id="インターフェース">インターフェース</h2>
 <p>Go言語のインタフェースはオブジェクトの行為を指定する一つの方法である。すでに簡単ないくつかの例を見たことがあります。 String メソッドを実装すればオブジェクトのカスタム出力が可能で、Fprintf の出力で Write メソッドを持っているどんなオブジェクトでも書くことができる。 Go コードでは、1 つまたは 2 つのメソッドを指定してくれるインタフェースが普遍的であり、インタフェースの名前 (名詞) は通常メソッド (動詞) から派生する: Write メソッドを実装すると io.Writer がインタフェースの名前になる場合。</p>
-<p>タイプは複数のインタフェースを実装することができる。 <a href="https://godoc.org/sort#Interface" target="_blank">sort.Interface</a>を実装しているコレクションの例を見てみましょう。 <a href="https://godoc.org/sort#Interface" target="_blank">sort.Interface</a> は Len(), Less(i, j int) bool, そして Swap(i, j int) を指定していて、このようなインタフェースを実装するなら sortパッケージ内 <a href="https://godoc.org/sort#IsSorted" target="_blank">IsSorted</a>, <a href="https://godoc.org/sort#Sort" target="_blank">Sort</a>, [Stable](<a href="https://godoc.org/sort#" target="_blank">https://godoc.org/sort#</a> Stable）同じルーチンを使用できます。また、カスタムのフォーマットを実装することもできます。次の例では、Sequenceはこれら2つのインターフェースを満たしています。</p>
+<p>タイプは複数のインタフェースを実装することができる。 <a href="https://godoc.org/sort#Interface" target="_blank">sort.Interface</a>を実装しているコレクションの例を見てみましょう。 <a href="https://godoc.org/sort#Interface" target="_blank">sort.Interface</a> は Len(), Less(i, j int) bool, そして Swap(i, j int) を指定していて、このようなインタフェースを実装するなら sortパッケージ内 <a href="https://godoc.org/sort#IsSorted" target="_blank">IsSorted</a>, <a href="https://godoc.org/sort#Sort" target="_blank">Sort</a>, <a href="https://godoc.org/sort# Stable" target="_blank">Stable</a>同じルーチンを使用できます。また、カスタムのフォーマットを実装することもできます。次の例では、Sequenceはこれら2つのインターフェースを満たしています。</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> Sequence []<span class="hljs-keyword">int</span>
 
 <span class="hljs-comment">// sort.Interfaceの必須メソッド。</span>
@@ -1090,8 +1090,8 @@
     <span class="hljs-keyword">return</span> fmt.Sprint([]<span class="hljs-keyword">int</span>(s))
 }
 </code></pre>
-<p>このような方法は、StringメソッドでSprintを安全に実行できるタイプ変換技法の別の例である。これが可能な理由は Sequence と []int 二つのタイプが名前だけ無視すれば同じであるため、合法的に互いに変換できることだ。この型変換は新しい値を作成せず、現在の値に新しい型があるかのように一時的に振る舞います。 （新しい値を作成する他の正当な変換もあります。たとえば、integerからfloating pointへの変換）</p>
-<p>Goプログラムで一群の他のメソッドを使用するために型を変換するのはGo言語らしい表現です。たとえば、[sort.IntSlice]（<a href="https://godoc.org/sort#IntSlice）を使用して、上記のプログラム全体を次のように簡素化できます。" target="_blank">https://godoc.org/sort#IntSlice）を使用して、上記のプログラム全体を次のように簡素化できます。</a></p>
+<p>このような方法は、StringメソッドでSprintを安全に実行できるタイプ変換技法の別の例である。これが可能な理由は Sequence と []int 二つのタイプが名前だけ無視すれば同じであるため、合法的に互いに変換できることだ。この型変換は新しい値を作成せず、現在の値に新しい型があるかのように一時的に振る舞います。 （新しい値を作成する他の正当な変換もあります。たとえば、integerからfloating pointへの変換)</p>
+<p>Goプログラムで一群の他のメソッドを使用するために型を変換するのはGo言語らしい表現です。たとえば、[sort.IntSlice]（<a href="https://godoc.org/sort#IntSlice)を使用して、上記のプログラム全体を次のように簡素化できます。" target="_blank">https://godoc.org/sort#IntSlice)を使用して、上記のプログラム全体を次のように簡素化できます。</a></p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> Sequence []<span class="hljs-keyword">int</span>
 
 <span class="hljs-comment">// プリントに必要なメソッド - プリントする前に要素をソートします。</span>
@@ -1140,8 +1140,8 @@
 </code></pre>
 <h2 id="一般性">一般性</h2>
 <p>もしあるタイプがただインタフェースを実装するためだけに存在するなら、つまりインタフェース以外のどのメソッドも外部にノンツンさせていない場合、タイプ自体を露出させる必要はない。インタフェースだけを公開することは、与えられた値がインテフェスに描かれた行為以外に何の興味深い機能もないことを確実に伝える。これはまた、共通の方法に対する文書化の反復を避けることができる。</p>
-<p>そのような場合、コンストラクタは実装タイプではなくインタフェース値を返さなければなりません。たとえば、ハッシュライブラリである<a href="https://godoc.org/hash/crc32#NewIEEE" target="_blank">crc32.NewIEEE</a>と<a href="https://godoc.org/hash/adler32#New" target="_blank">adler32.New</a>はどちらも多インタフェースタイプ[hash.Hash32]（<a href="https://godoc.org/hash/Hash32）を返します。" target="_blank">https://godoc.org/hash/Hash32）を返します。</a> GoプログラムでCRC-32アロリズムをAdler-32に置き換えるために必要なのは、単にコンストラクタコールを置き換えることです。他のコードはアルゴリズムの変化には影響されません。</p>
-<p>同様の方法で、さまざまな暗号化パッケージ内のストリーミングシッパーアルゴリズムを、それらが接続しているブロックシッパーから分離することができます。 crypto/cipher パッケージ内の [Block] (<a href="https://godoc.org/crypto/cipher#Block" target="_blank">https://godoc.org/crypto/cipher#Block</a>) インタフェースは、1 ブロックのデータを暗号化する block cipher の行為を定義する。次に、bufioパッケージから推測できるように、[Block]（<a href="https://godoc.org/crypto/cipher#Block）インタフェースを実装するcipherパッケージは、[Stream]（https://godoc.org/" target="_blank">https://godoc.org/crypto/cipher#Block）インタフェースを実装するcipherパッケージは、[Stream]（https://godoc.org/</a> crypto / cipher＃Stream）インターフェースに代表されるストリーミングcipherを構築するとき、ブロック暗号化の詳細を知らなくても使用することができる。</p>
+<p>そのような場合、コンストラクタは実装タイプではなくインタフェース値を返さなければなりません。たとえば、ハッシュライブラリである<a href="https://godoc.org/hash/crc32#NewIEEE" target="_blank">crc32.NewIEEE</a>と<a href="https://godoc.org/hash/adler32#New" target="_blank">adler32.New</a>はどちらも多インタフェースタイプ[hash.Hash32]（<a href="https://godoc.org/hash/Hash32)を返します。" target="_blank">https://godoc.org/hash/Hash32)を返します。</a> GoプログラムでCRC-32アロリズムをAdler-32に置き換えるために必要なのは、単にコンストラクタコールを置き換えることです。他のコードはアルゴリズムの変化には影響されません。</p>
+<p>同様の方法で、さまざまな暗号化パッケージ内のストリーミングシッパーアルゴリズムを、それらが接続しているブロックシッパーから分離することができます。 crypto/cipher パッケージ内の [Block] (<a href="https://godoc.org/crypto/cipher#Block" target="_blank">https://godoc.org/crypto/cipher#Block</a>) インタフェースは、1 ブロックのデータを暗号化する block cipher の行為を定義する。次に、bufioパッケージから推測できるように、[Block]（<a href="https://godoc.org/crypto/cipher#Block)インタフェースを実装するcipherパッケージは、[Stream]（https://godoc.org/" target="_blank">https://godoc.org/crypto/cipher#Block)インタフェースを実装するcipherパッケージは、[Stream]（https://godoc.org/</a> crypto / cipher＃Stream)インターフェースに代表されるストリーミングcipherを構築するとき、ブロック暗号化の詳細を知らなくても使用することができる。</p>
 <p>crypto / cipherインターフェースは次のとおりです:</p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> Block <span class="hljs-keyword">interface</span> {
     BlockSize() <span class="hljs-keyword">int</span>
@@ -1153,19 +1153,19 @@
     XORKeyStream(dst, src []<span class="hljs-keyword">byte</span>)
 }
 </code></pre>
-<p>ここでは、ブロックcipherをストリーミングcipherに置き換えるカウンタモード（CTR）ストリームの定義があります。 block cipherの詳細が抽象化されていることに注意してください:</p>
+<p>ここでは、ブロックcipherをストリーミングcipherに置き換えるカウンタモード（CTR)ストリームの定義があります。 block cipherの詳細が抽象化されていることに注意してください:</p>
 <pre><code class="lang-go"><span class="hljs-comment">// NewCTRは、カウンダーモードで指定されたブロックを使用して暗号化および/復号化するストリームを返します。</span>
 <span class="hljs-comment">// ivの長さはブロックのブロックサイズと同じでなければなりません。</span>
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewCTR</span><span class="hljs-params">(block Block, iv []<span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">Stream</span></span>
 </code></pre>
 <p>NewCTRは特定の暗号化アルゴリズムとデータソースにのみ適用されません。インタフェースを実装する任意のアルゴリズムやデータソースにも適用可能です。なぜなら、インタフェース値を返し、CTR暗号化を別の暗号化モードに置き換えることが局所的な変化であるからです。コンストラクタコールは必ず編集する必要があります。しかし、囲んでいるコードは戻り結果を<a href="https://godoc.org/crypto/cipher#Stream" target="_blank">Stream</a>で処理しなければならないため、違いを知らない。</p>
 <h2 id="インタフェースとメソッド">インタフェースとメソッド</h2>
-<p>ほとんどすべてにメソッドを添付できるという言葉は、ほぼすべてがインタフェースを満たすことができるということでもある。 1つの会話的な例は、[http]（<a href="https://godoc.org/net/http）パッケージ内で定義されている[Handler]（https://godoc.org/net/http#Handler）インタフェースです。" target="_blank">https://godoc.org/net/http）パッケージ内で定義されている[Handler]（https://godoc.org/net/http#Handler）インタフェースです。</a> [Handler]（<a href="https://godoc.org/net/http#Handler）を実装するどのオブジェクトもHTTPリクエストにサービスを提供できます。" target="_blank">https://godoc.org/net/http#Handler）を実装するどのオブジェクトもHTTPリクエストにサービスを提供できます。</a></p>
+<p>ほとんどすべてにメソッドを添付できるという言葉は、ほぼすべてがインタフェースを満たすことができるということでもある。 1つの会話的な例は、[http]（<a href="https://godoc.org/net/http)パッケージ内で定義されている[Handler]（https://godoc.org/net/http#Handler)インタフェースです。" target="_blank">https://godoc.org/net/http)パッケージ内で定義されている[Handler]（https://godoc.org/net/http#Handler)インタフェースです。</a> [Handler]（<a href="https://godoc.org/net/http#Handler)を実装するどのオブジェクトもHTTPリクエストにサービスを提供できます。" target="_blank">https://godoc.org/net/http#Handler)を実装するどのオブジェクトもHTTPリクエストにサービスを提供できます。</a></p>
 <pre><code class="lang-go"><span class="hljs-keyword">type</span> Handler <span class="hljs-keyword">interface</span> {
     ServeHTTP(ResponseWriter, *Request)
 }
 </code></pre>
-<p>[ResponseWriter]（<a href="https://godoc.org/net/http#ResponseWriter）もクライアントに応答を返すために必要なメソッドのアクセスを提供するインタフェースです。これらのメソッドは標準のWriteメソッドを含み、[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)は[io.Writer](https://godoc.org/io#Writer)使用できる場所ならどこでも使用できる。" target="_blank">https://godoc.org/net/http#ResponseWriter）もクライアントに応答を返すために必要なメソッドのアクセスを提供するインタフェースです。これらのメソッドは標準のWriteメソッドを含み、[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)は[io.Writer](https://godoc.org/io#Writer)使用できる場所ならどこでも使用できる。</a> <a href="https://godoc.org/net/http#Request" target="_blank">Request</a>は、クライアントから来るリクエストの分析された内容を盛り込んだstructである。</p>
+<p>[ResponseWriter]（<a href="https://godoc.org/net/http#ResponseWriter)もクライアントに応答を返すために必要なメソッドのアクセスを提供するインタフェースです。これらのメソッドは標準のWriteメソッドを含み、[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)は[io.Writer](https://godoc.org/io#Writer)使用できる場所ならどこでも使用できる。" target="_blank">https://godoc.org/net/http#ResponseWriter)もクライアントに応答を返すために必要なメソッドのアクセスを提供するインタフェースです。これらのメソッドは標準のWriteメソッドを含み、[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)は[io.Writer](https://godoc.org/io#Writer)使用できる場所ならどこでも使用できる。</a> <a href="https://godoc.org/net/http#Request" target="_blank">Request</a>は、クライアントから来るリクエストの分析された内容を盛り込んだstructである。</p>
 <p>簡潔にするために、POSTは無視され、常にHTTPリクエストがGETであると仮定します。そのような単純化は、ハンドラーがどのようにシャットアップされるかに影響を与えません。ここではマイナーな例ですが、ページ訪問数を数えるハンダーの完全な実装があります。</p>
 <pre><code class="lang-go"><span class="hljs-comment">// シンプルなカウンターサーバー.</span>
 <span class="hljs-keyword">type</span> Counter <span class="hljs-keyword">struct</span> {
@@ -1177,13 +1177,13 @@
     fmt.Fprintf(w, <span class="hljs-string">&quot;counter = %d\n&quot;</span>, ctr.n)
 }
 </code></pre>
-<p>（これまでの話と一脈相通する例として、<a href="https://godoc.org/fmt#Fprintf" target="_blank">Fprintf</a>が<a href="https://godoc.org/net/http#ResponseWriter" target="_blank">http.ResponseWriter</a>に出力できる注意してください。）参考までに、ここでURLにそのようなサーバーをどのように添付するかの例があります。</p>
+<p>（これまでの話と一脈相通する例として、<a href="https://godoc.org/fmt#Fprintf" target="_blank">Fprintf</a>が<a href="https://godoc.org/net/http#ResponseWriter" target="_blank">http.ResponseWriter</a>に出力できる注意してください。)参考までに、ここでURLにそのようなサーバーをどのように添付するかの例があります。</p>
 <pre><code class="lang-go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;net/http&quot;</span>
 ...
 ctr := <span class="hljs-built_in">new</span>(Counter)
 http.Handle(<span class="hljs-string">&quot;/counter&quot;</span>, ctr)
 </code></pre>
-<p>ところで、あえてCounterをstructにする理由があるのだろうか？ integerで十分です。 （callerに値の増加を示すために、レシーバはポインタである必要があります。）</p>
+<p>ところで、あえてCounterをstructにする理由があるのだろうか？ integerで十分です。 （callerに値の増加を示すために、レシーバはポインタである必要があります。)</p>
 <pre><code class="lang-go"><span class="hljs-comment">// シンプルなカウンターサーバー.</span>
 <span class="hljs-keyword">type</span> Counter <span class="hljs-keyword">int</span>
 
@@ -1194,7 +1194,7 @@ http.Handle(<span class="hljs-string">&quot;/counter&quot;</span>, ctr)
 </code></pre>
 <p>あなたのプログラムの内部状態がページを訪問することを知る必要がある場合はどうでしょうか？ウェブページにチャンネルを結ぶ。</p>
 <pre><code class="lang-go"><span class="hljs-comment">//チャンネルが訪問ごとに通知されます。</span>
-<span class="hljs-comment">//（おそらくこのチャネルにはバッファを使用する必要があります。）</span>
+<span class="hljs-comment">//（おそらくこのチャネルにはバッファを使用する必要があります。)</span>
 <span class="hljs-keyword">type</span> Chan <span class="hljs-keyword">chan</span> *http.Request
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(ch Chan)</span> <span class="hljs-title">ServeHTTP</span><span class="hljs-params">(w http.ResponseWriter, req *http.Request)</span></span> {
@@ -1210,7 +1210,7 @@ http.Handle(<span class="hljs-string">&quot;/counter&quot;</span>, ctr)
 <p>これをどのようにHTTPサーバーに置き換えることができますか？どのタイプに加えて、値は無視しながらArgServerをメソッドにすることができます。しかし、より良い方法があります。ポインタとインタフェースだけを除いてはどのタイプにもメソッドを定義できる事実を利用して、関数にメソッドを書くことができる。 <a href="https://godoc.org/net/http" target="_blank">http</a> パッケージには次のようなコードがあります:</p>
 <pre><code class="lang-go"><span class="hljs-comment">// HandlerFuncを使用すると、通常の関数をHTTPハンドラーとして書くことができます。</span>
 <span class="hljs-comment">// f が適切な関数 signature を持つ場合、</span>
-<span class="hljs-comment">// HandlerFunc（f）はfを呼び出すHandlerオブジェクトです。</span>
+<span class="hljs-comment">// HandlerFunc（f)はfを呼び出すHandlerオブジェクトです。</span>
 <span class="hljs-keyword">type</span> HandlerFunc <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(ResponseWriter, *Request)</span></span>
 
 <span class="hljs-comment">// ServeHTTP calls f(w, req).</span>
@@ -1225,11 +1225,11 @@ http.Handle(<span class="hljs-string">&quot;/counter&quot;</span>, ctr)
     fmt.Fprintln(w, os.Args)
 }
 </code></pre>
-<p>ArgServerは[HandlerFunc]（<a href="https://godoc.org/net/http#HandlerFunc）と同じ" target="_blank">https://godoc.org/net/http#HandlerFunc）と同じ</a> signature です。 IntSlice.Sortメソッドを書くためにSequenceを[IntSlice]（<a href="https://godoc.org/sort#IntSlice）に変換したように、ServeHTTPを書くためにArgServerをHandlerFuncに変換することができます。シャックアップを行うコードは非常に簡潔です" target="_blank">https://godoc.org/sort#IntSlice）に変換したように、ServeHTTPを書くためにArgServerをHandlerFuncに変換することができます。シャックアップを行うコードは非常に簡潔です</a>:</p>
+<p>ArgServerは[HandlerFunc]（<a href="https://godoc.org/net/http#HandlerFunc)と同じ" target="_blank">https://godoc.org/net/http#HandlerFunc)と同じ</a> signature です。 IntSlice.Sortメソッドを書くためにSequenceを[IntSlice]（<a href="https://godoc.org/sort#IntSlice)に変換したように、ServeHTTPを書くためにArgServerをHandlerFuncに変換することができます。シャックアップを行うコードは非常に簡潔です" target="_blank">https://godoc.org/sort#IntSlice)に変換したように、ServeHTTPを書くためにArgServerをHandlerFuncに変換することができます。シャックアップを行うコードは非常に簡潔です</a>:</p>
 <pre><code class="lang-go">http.Handle(<span class="hljs-string">&quot;/args&quot;</span>, http.HandlerFunc(ArgServer))
 </code></pre>
-<p>誰が/ argsを訪問したとき、そのページにインストールされたhandlerはArgServer値を持つ[HandlerFunc]（<a href="https://godoc.org/net/http#HandlerFunc）タイプです。" target="_blank">https://godoc.org/net/http#HandlerFunc）タイプです。</a> HTTP サーバはそのタイプの ServeHTTP メソッドを呼びながら ArgServer をレシーバとして使い、最終的に ArgServer を呼ぶことになる: HandlerFunc.ServeHTTP の中で f(w, req) を呼ぶことになる。その後、コマンドライン引数が表示されます。</p>
-<p>これまで、struct、integer、channel、そして関数（function）を持ってHTTPサーバーを作ってみました。これが可能な理由は、インタフェースがほぼすべての型で定義できる単純なメソッドの集合だからだ。</p>
+<p>誰が/ argsを訪問したとき、そのページにインストールされたhandlerはArgServer値を持つ[HandlerFunc]（<a href="https://godoc.org/net/http#HandlerFunc)タイプです。" target="_blank">https://godoc.org/net/http#HandlerFunc)タイプです。</a> HTTP サーバはそのタイプの ServeHTTP メソッドを呼びながら ArgServer をレシーバとして使い、最終的に ArgServer を呼ぶことになる: HandlerFunc.ServeHTTP の中で f(w, req) を呼ぶことになる。その後、コマンドライン引数が表示されます。</p>
+<p>これまで、struct、integer、channel、そして関数（function)を持ってHTTPサーバーを作ってみました。これが可能な理由は、インタフェースがほぼすべての型で定義できる単純なメソッドの集合だからだ。</p>
 
                                 
                                 </section>
@@ -1273,7 +1273,7 @@ http.Handle(<span class="hljs-string">&quot;/counter&quot;</span>, ctr)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"インターフェースと他のタイプ","level":"1.2.11","depth":2,"next":{"title":"スペース識別子","level":"1.2.12","depth":2,"path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md","articles":[{"title":"複数の割り当てにおける空白識別子","level":"1.2.12.1","depth":3,"anchor":"#複数の割り当てにおける空白識別子","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#複数の割り当てにおける空白識別子","articles":[]},{"title":"未使用のインポートと変数","level":"1.2.12.2","depth":3,"anchor":"#付随効果のためのインポート","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#付随効果のためのインポート","articles":[]},{"title":"付随効果のためのインポート","level":"1.2.12.3","depth":3,"anchor":"#付随効果のためのインポート","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#付随効果のためのインポート","articles":[]},{"title":"インターフェース検査","level":"1.2.12.4","depth":3,"anchor":"#インターフェース検査","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#インターフェース検査","articles":[]}]},"previous":{"title":"メソッド","level":"1.2.10","depth":2,"path":"src/go/methods.md","ref":"src/go/methods.md","articles":[{"title":"ポインター対。値","level":"1.2.10.1","depth":3,"anchor":"#ポインター対。値","path":"src/go/methods.md","ref":"src/go/methods.md#ポインター対。値","articles":[]}]},"articles":[{"title":"インターフェース","level":"1.2.11.1","depth":3,"anchor":"#インターフェース","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#インターフェース","articles":[]},{"title":"タイプ変換","level":"1.2.11.2","depth":3,"anchor":"#タイプ変換","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#タイプ変換","articles":[]},{"title":"インターフェース変換とタイプの断言","level":"1.2.11.3","depth":3,"anchor":"#インターフェース変換とタイプの断言","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#インターフェース変換とタイプの断言","articles":[]},{"title":"一般性","level":"1.2.11.4","depth":3,"anchor":"#一般性","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#一般性","articles":[]},{"title":"インタフェースとメソッド","level":"1.2.11.5","depth":3,"anchor":"#インタフェースとメソッド","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#インタフェースとメソッド","articles":[]}],"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"src/go/interfaces_and_other_types.md","mtime":"2022-03-11T01:30:02.880Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-11T01:30:14.024Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"インターフェースと他のタイプ","level":"1.2.11","depth":2,"next":{"title":"スペース識別子","level":"1.2.12","depth":2,"path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md","articles":[{"title":"複数の割り当てにおける空白識別子","level":"1.2.12.1","depth":3,"anchor":"#複数の割り当てにおける空白識別子","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#複数の割り当てにおける空白識別子","articles":[]},{"title":"未使用のインポートと変数","level":"1.2.12.2","depth":3,"anchor":"#付随効果のためのインポート","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#付随効果のためのインポート","articles":[]},{"title":"付随効果のためのインポート","level":"1.2.12.3","depth":3,"anchor":"#付随効果のためのインポート","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#付随効果のためのインポート","articles":[]},{"title":"インターフェース検査","level":"1.2.12.4","depth":3,"anchor":"#インターフェース検査","path":"src/go/the_blank_identifier.md","ref":"src/go/the_blank_identifier.md#インターフェース検査","articles":[]}]},"previous":{"title":"メソッド","level":"1.2.10","depth":2,"path":"src/go/methods.md","ref":"src/go/methods.md","articles":[{"title":"ポインター対。値","level":"1.2.10.1","depth":3,"anchor":"#ポインター対。値","path":"src/go/methods.md","ref":"src/go/methods.md#ポインター対。値","articles":[]}]},"articles":[{"title":"インターフェース","level":"1.2.11.1","depth":3,"anchor":"#インターフェース","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#インターフェース","articles":[]},{"title":"タイプ変換","level":"1.2.11.2","depth":3,"anchor":"#タイプ変換","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#タイプ変換","articles":[]},{"title":"インターフェース変換とタイプの断言","level":"1.2.11.3","depth":3,"anchor":"#インターフェース変換とタイプの断言","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#インターフェース変換とタイプの断言","articles":[]},{"title":"一般性","level":"1.2.11.4","depth":3,"anchor":"#一般性","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#一般性","articles":[]},{"title":"インタフェースとメソッド","level":"1.2.11.5","depth":3,"anchor":"#インタフェースとメソッド","path":"src/go/interfaces_and_other_types.md","ref":"src/go/interfaces_and_other_types.md#インタフェースとメソッド","articles":[]}],"dir":"ltr"},"config":{"plugins":["toggle-chapters"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"leejongkyoo","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"ドキュメントを GitHub Pages に公開する","language":"ja","gitbook":"*"},"file":{"path":"src/go/interfaces_and_other_types.md","mtime":"2022-03-14T08:08:17.893Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-03-14T08:08:30.557Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
