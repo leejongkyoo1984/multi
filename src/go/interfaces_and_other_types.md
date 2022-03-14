@@ -5,7 +5,7 @@
 
 Go言語のインタフェースはオブジェクトの行為を指定する一つの方法である。すでに簡単ないくつかの例を見たことがあります。 String メソッドを実装すればオブジェクトのカスタム出力が可能で、Fprintf の出力で Write メソッドを持っているどんなオブジェクトでも書くことができる。 Go コードでは、1 つまたは 2 つのメソッドを指定してくれるインタフェースが普遍的であり、インタフェースの名前 (名詞) は通常メソッド (動詞) から派生する: Write メソッドを実装すると io.Writer がインタフェースの名前になる場合。
 
-タイプは複数のインタフェースを実装することができる。 [sort.Interface](https://godoc.org/sort#Interface)を実装しているコレクションの例を見てみましょう。 [sort.Interface](https://godoc.org/sort#Interface) は Len(), Less(i, j int) bool, そして Swap(i, j int) を指定していて、このようなインタフェースを実装するなら sortパッケージ内 [IsSorted](https://godoc.org/sort#IsSorted), [Sort](https://godoc.org/sort#Sort), [Stable](https://godoc.org/sort# Stable）同じルーチンを使用できます。また、カスタムのフォーマットを実装することもできます。次の例では、Sequenceはこれら2つのインターフェースを満たしています。
+タイプは複数のインタフェースを実装することができる。 [sort.Interface](https://godoc.org/sort#Interface)を実装しているコレクションの例を見てみましょう。 [sort.Interface](https://godoc.org/sort#Interface) は Len(), Less(i, j int) bool, そして Swap(i, j int) を指定していて、このようなインタフェースを実装するなら sortパッケージ内 [IsSorted](https://godoc.org/sort#IsSorted), [Sort](https://godoc.org/sort#Sort), [Stable](https://godoc.org/sort# Stable)同じルーチンを使用できます。また、カスタムのフォーマットを実装することもできます。次の例では、Sequenceはこれら2つのインターフェースを満たしています。
 
 ```go
 type Sequence []int
@@ -47,10 +47,10 @@ func (s Sequence) String() string {
 }
 ```
 
-このような方法は、StringメソッドでSprintを安全に実行できるタイプ変換技法の別の例である。これが可能な理由は Sequence と []int 二つのタイプが名前だけ無視すれば同じであるため、合法的に互いに変換できることだ。この型変換は新しい値を作成せず、現在の値に新しい型があるかのように一時的に振る舞います。 （新しい値を作成する他の正当な変換もあります。たとえば、integerからfloating pointへの変換）
+このような方法は、StringメソッドでSprintを安全に実行できるタイプ変換技法の別の例である。これが可能な理由は Sequence と []int 二つのタイプが名前だけ無視すれば同じであるため、合法的に互いに変換できることだ。この型変換は新しい値を作成せず、現在の値に新しい型があるかのように一時的に振る舞います。 （新しい値を作成する他の正当な変換もあります。たとえば、integerからfloating pointへの変換)
 
 
-Goプログラムで一群の他のメソッドを使用するために型を変換するのはGo言語らしい表現です。たとえば、[sort.IntSlice]（https://godoc.org/sort#IntSlice）を使用して、上記のプログラム全体を次のように簡素化できます。
+Goプログラムで一群の他のメソッドを使用するために型を変換するのはGo言語らしい表現です。たとえば、[sort.IntSlice]（https://godoc.org/sort#IntSlice)を使用して、上記のプログラム全体を次のように簡素化できます。
 
 ```go
 type Sequence []int
@@ -132,10 +132,10 @@ if str, ok := value.(string); ok {
 もしあるタイプがただインタフェースを実装するためだけに存在するなら、つまりインタフェース以外のどのメソッドも外部にノンツンさせていない場合、タイプ自体を露出させる必要はない。インタフェースだけを公開することは、与えられた値がインテフェスに描かれた行為以外に何の興味深い機能もないことを確実に伝える。これはまた、共通の方法に対する文書化の反復を避けることができる。
 
 
-そのような場合、コンストラクタは実装タイプではなくインタフェース値を返さなければなりません。たとえば、ハッシュライブラリである[crc32.NewIEEE](https://godoc.org/hash/crc32#NewIEEE)と[adler32.New](https://godoc.org/hash/adler32#New)はどちらも多インタフェースタイプ[hash.Hash32]（https://godoc.org/hash/Hash32）を返します。 GoプログラムでCRC-32アロリズムをAdler-32に置き換えるために必要なのは、単にコンストラクタコールを置き換えることです。他のコードはアルゴリズムの変化には影響されません。
+そのような場合、コンストラクタは実装タイプではなくインタフェース値を返さなければなりません。たとえば、ハッシュライブラリである[crc32.NewIEEE](https://godoc.org/hash/crc32#NewIEEE)と[adler32.New](https://godoc.org/hash/adler32#New)はどちらも多インタフェースタイプ[hash.Hash32]（https://godoc.org/hash/Hash32)を返します。 GoプログラムでCRC-32アロリズムをAdler-32に置き換えるために必要なのは、単にコンストラクタコールを置き換えることです。他のコードはアルゴリズムの変化には影響されません。
 
 
-同様の方法で、さまざまな暗号化パッケージ内のストリーミングシッパーアルゴリズムを、それらが接続しているブロックシッパーから分離することができます。 crypto/cipher パッケージ内の [Block] (https://godoc.org/crypto/cipher#Block) インタフェースは、1 ブロックのデータを暗号化する block cipher の行為を定義する。次に、bufioパッケージから推測できるように、[Block]（https://godoc.org/crypto/cipher#Block）インタフェースを実装するcipherパッケージは、[Stream]（https://godoc.org/ crypto / cipher＃Stream）インターフェースに代表されるストリーミングcipherを構築するとき、ブロック暗号化の詳細を知らなくても使用することができる。
+同様の方法で、さまざまな暗号化パッケージ内のストリーミングシッパーアルゴリズムを、それらが接続しているブロックシッパーから分離することができます。 crypto/cipher パッケージ内の [Block] (https://godoc.org/crypto/cipher#Block) インタフェースは、1 ブロックのデータを暗号化する block cipher の行為を定義する。次に、bufioパッケージから推測できるように、[Block]（https://godoc.org/crypto/cipher#Block)インタフェースを実装するcipherパッケージは、[Stream]（https://godoc.org/ crypto / cipher＃Stream)インターフェースに代表されるストリーミングcipherを構築するとき、ブロック暗号化の詳細を知らなくても使用することができる。
 
 
 crypto / cipherインターフェースは次のとおりです:
@@ -153,7 +153,7 @@ type Stream interface {
 ```
 
 
-ここでは、ブロックcipherをストリーミングcipherに置き換えるカウンタモード（CTR）ストリームの定義があります。 block cipherの詳細が抽象化されていることに注意してください:
+ここでは、ブロックcipherをストリーミングcipherに置き換えるカウンタモード（CTR)ストリームの定義があります。 block cipherの詳細が抽象化されていることに注意してください:
 
 ```go
 // NewCTRは、カウンダーモードで指定されたブロックを使用して暗号化および/復号化するストリームを返します。
@@ -167,7 +167,7 @@ NewCTRは特定の暗号化アルゴリズムとデータソースにのみ適�
 ## インタフェースとメソッド
 
 
-ほとんどすべてにメソッドを添付できるという言葉は、ほぼすべてがインタフェースを満たすことができるということでもある。 1つの会話的な例は、[http]（https://godoc.org/net/http）パッケージ内で定義されている[Handler]（https://godoc.org/net/http#Handler）インタフェースです。 [Handler]（https://godoc.org/net/http#Handler）を実装するどのオブジェクトもHTTPリクエストにサービスを提供できます。
+ほとんどすべてにメソッドを添付できるという言葉は、ほぼすべてがインタフェースを満たすことができるということでもある。 1つの会話的な例は、[http]（https://godoc.org/net/http)パッケージ内で定義されている[Handler]（https://godoc.org/net/http#Handler)インタフェースです。 [Handler]（https://godoc.org/net/http#Handler)を実装するどのオブジェクトもHTTPリクエストにサービスを提供できます。
 
 ```go
 type Handler interface {
@@ -176,7 +176,7 @@ type Handler interface {
 ```
 
 
-[ResponseWriter]（https://godoc.org/net/http#ResponseWriter）もクライアントに応答を返すために必要なメソッドのアクセスを提供するインタフェースです。これらのメソッドは標準のWriteメソッドを含み、[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)は[io.Writer](https://godoc.org/io#Writer)使用できる場所ならどこでも使用できる。 [Request](https://godoc.org/net/http#Request)は、クライアントから来るリクエストの分析された内容を盛り込んだstructである。
+[ResponseWriter]（https://godoc.org/net/http#ResponseWriter)もクライアントに応答を返すために必要なメソッドのアクセスを提供するインタフェースです。これらのメソッドは標準のWriteメソッドを含み、[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)は[io.Writer](https://godoc.org/io#Writer)使用できる場所ならどこでも使用できる。 [Request](https://godoc.org/net/http#Request)は、クライアントから来るリクエストの分析された内容を盛り込んだstructである。
 
 
 簡潔にするために、POSTは無視され、常にHTTPリクエストがGETであると仮定します。そのような単純化は、ハンドラーがどのようにシャットアップされるかに影響を与えません。ここではマイナーな例ですが、ページ訪問数を数えるハンダーの完全な実装があります。
@@ -195,7 +195,7 @@ func (ctr *Counter) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 
 
-（これまでの話と一脈相通する例として、[Fprintf](https://godoc.org/fmt#Fprintf)が[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)に出力できる注意してください。）参考までに、ここでURLにそのようなサーバーをどのように添付するかの例があります。
+（これまでの話と一脈相通する例として、[Fprintf](https://godoc.org/fmt#Fprintf)が[http.ResponseWriter](https://godoc.org/net/http#ResponseWriter)に出力できる注意してください。)参考までに、ここでURLにそのようなサーバーをどのように添付するかの例があります。
 
 ```go
 import "net/http"
@@ -204,7 +204,7 @@ ctr := new(Counter)
 http.Handle("/counter", ctr)
 ```
 
-ところで、あえてCounterをstructにする理由があるのだろうか？ integerで十分です。 （callerに値の増加を示すために、レシーバはポインタである必要があります。）
+ところで、あえてCounterをstructにする理由があるのだろうか？ integerで十分です。 （callerに値の増加を示すために、レシーバはポインタである必要があります。)
 
 ```go
 // シンプルなカウンターサーバー.
@@ -220,7 +220,7 @@ func (ctr *Counter) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 ```go
 //チャンネルが訪問ごとに通知されます。
-//（おそらくこのチャネルにはバッファを使用する必要があります。）
+//（おそらくこのチャネルにはバッファを使用する必要があります。)
 type Chan chan *http.Request
 
 func (ch Chan) ServeHTTP(w http.ResponseWriter, req *http.Request) {
@@ -244,7 +244,7 @@ func ArgServer() {
 ```go
 // HandlerFuncを使用すると、通常の関数をHTTPハンドラーとして書くことができます。
 // f が適切な関数 signature を持つ場合、
-// HandlerFunc（f）はfを呼び出すHandlerオブジェクトです。
+// HandlerFunc（f)はfを呼び出すHandlerオブジェクトです。
 type HandlerFunc func(ResponseWriter, *Request)
 
 // ServeHTTP calls f(w, req).
@@ -267,14 +267,14 @@ func ArgServer(w http.ResponseWriter, req *http.Request) {
 ```
 
 
-ArgServerは[HandlerFunc]（https://godoc.org/net/http#HandlerFunc）と同じ signature です。 IntSlice.Sortメソッドを書くためにSequenceを[IntSlice]（https://godoc.org/sort#IntSlice）に変換したように、ServeHTTPを書くためにArgServerをHandlerFuncに変換することができます。シャックアップを行うコードは非常に簡潔です:
+ArgServerは[HandlerFunc]（https://godoc.org/net/http#HandlerFunc)と同じ signature です。 IntSlice.Sortメソッドを書くためにSequenceを[IntSlice]（https://godoc.org/sort#IntSlice)に変換したように、ServeHTTPを書くためにArgServerをHandlerFuncに変換することができます。シャックアップを行うコードは非常に簡潔です:
 
 ```go
 http.Handle("/args", http.HandlerFunc(ArgServer))
 ```
 
 
-誰が/ argsを訪問したとき、そのページにインストールされたhandlerはArgServer値を持つ[HandlerFunc]（https://godoc.org/net/http#HandlerFunc）タイプです。 HTTP サーバはそのタイプの ServeHTTP メソッドを呼びながら ArgServer をレシーバとして使い、最終的に ArgServer を呼ぶことになる: HandlerFunc.ServeHTTP の中で f(w, req) を呼ぶことになる。その後、コマンドライン引数が表示されます。
+誰が/ argsを訪問したとき、そのページにインストールされたhandlerはArgServer値を持つ[HandlerFunc]（https://godoc.org/net/http#HandlerFunc)タイプです。 HTTP サーバはそのタイプの ServeHTTP メソッドを呼びながら ArgServer をレシーバとして使い、最終的に ArgServer を呼ぶことになる: HandlerFunc.ServeHTTP の中で f(w, req) を呼ぶことになる。その後、コマンドライン引数が表示されます。
 
 
-これまで、struct、integer、channel、そして関数（function）を持ってHTTPサーバーを作ってみました。これが可能な理由は、インタフェースがほぼすべての型で定義できる単純なメソッドの集合だからだ。
+これまで、struct、integer、channel、そして関数（function)を持ってHTTPサーバーを作ってみました。これが可能な理由は、インタフェースがほぼすべての型で定義できる単純なメソッドの集合だからだ。

@@ -16,7 +16,7 @@ type Writer interface {
 ```
 
 
-[io](https://godoc.org/io)パッケージは、いくつかの別のインタフェースを公開しており、複数のメソッドを実装できるオブジェクトを指定するのに書く。たとえば、[io.ReadWriter]（https://godoc.org/io#ReadWriter）はReadとWriteの両方を持っています。 2つのメソッドを明示的にリストして[io.ReadWriter]（https://godoc.org/io#ReadWriter）を定義することもできますが、より簡単で覚えやすい方法は2つのインターフェースを埋め込むことによって（embedded） 1つのインターフェースを形成することです:
+[io](https://godoc.org/io)パッケージは、いくつかの別のインタフェースを公開しており、複数のメソッドを実装できるオブジェクトを指定するのに書く。たとえば、[io.ReadWriter](https://godoc.org/io#ReadWriter)はReadとWriteの両方を持っています。 2つのメソッドを明示的にリストして[io.ReadWriter](https://godoc.org/io#ReadWriter)を定義することもできますが、より簡単で覚えやすい方法は2つのインターフェースを埋め込むことによって(embedded) 1つのインターフェースを形成することです:
 
 ```go
 // ReadWriterはReaderとWriterインターフェースを組み合わせたインターフェースです。
@@ -27,10 +27,10 @@ type ReadWriter interface {
 ```
 
 
-見えるように [Reader](https://godoc.org/io#Reader)がすることと[Writer](https://godoc.org/io#Writer)がすることを[ReadWriter](https://godoc.org /io＃ReadWriter）はすべてできることです。埋め込まれたインタフェースの組み合わせである（共通のメソッドを持たないインタフェースでなければならない）。インターフェイスだけがインターフェイスに挿入できます。
+見えるように [Reader](https://godoc.org/io#Reader)がすることと[Writer](https://godoc.org/io#Writer)がすることを[ReadWriter](https://godoc.org /io＃ReadWriter)はすべてできることです。埋め込まれたインタフェースの組み合わせである(共通のメソッドを持たないインタフェースでなければならない)。インターフェイスだけがインターフェイスに挿入できます。
 
 
-基本的に同じ考えがstructにも適用できるが、その影響ははるかに広範囲である。 [bufio](https://godoc.org/bufio)パッケージには [bufio.Reader](https://godoc.org/bufio#Reader) と [bufio.Writer](https://godoc.org/bufio ＃Writer）2つのstructタイプがあり、もちろん[io]（https://godoc.org/io）パッケージにある同様のインターフェースを実装しています。ところで [bufio](https://godoc.org/bufio) はまたバッファを内在した reader/writer を実装することもあるが、埋め込み（embedding）を利用して reader と writer を 1 つの struct に組み合わせるものである。タイプをリストしますが、フィールド名を与えない方法です。
+基本的に同じ考えがstructにも適用できるが、その影響ははるかに広範囲である。 [bufio](https://godoc.org/bufio)パッケージには [bufio.Reader](https://godoc.org/bufio#Reader) と [bufio.Writer](https://godoc.org/bufio ＃Writer)2つのstructタイプがあり、もちろん[io](https://godoc.org/io)パッケージにある同様のインターフェースを実装しています。ところで [bufio](https://godoc.org/bufio) はまたバッファを内在した reader/writer を実装することもあるが、埋め込み(embedding)を利用して reader と writer を 1 つの struct に組み合わせるものである。タイプをリストしますが、フィールド名を与えない方法です。
 
 ```go
 // ReadWriter ReaderとWriterへのポインタを保存します。
@@ -52,7 +52,7 @@ type ReadWriter struct {
 ```
 
 
-しかし、これを行うには、[io]（https://godoc.org/io）を満たし、readerとwriterが持っているメソッドを使用するために、転送用のメソッドを別々に提供する必要があります。
+しかし、これを行うには、[io](https://godoc.org/io)を満たし、readerとwriterが持っているメソッドを使用するために、転送用のメソッドを別々に提供する必要があります。
 
 ```go
 func (rw *ReadWriter) Read(p []byte) (n int, err error) {
@@ -61,10 +61,10 @@ func (rw *ReadWriter) Read(p []byte) (n int, err error) {
 ```
 
 
-このような面倒なことを避けるためには、structを直接埋め込むことができます。埋め込まれた型のメソッドは自動的に続き、その意味は [bufio.ReadWriter](https://godoc.org/bufio#ReadWriter) は [bufio.Reader](https://godoc.org/bufio#Reader ）と[bufio.Writer](https://godoc.org/bufio#Writer)のメソッドの両方を持つことになるという。同時に、次の3つのインターフェースを満たすこともできます：[io.Reader](https://godoc.org/io#Reader)、[io.Writer](https://godoc.org/io#Writer)、 io.ReadWriter](https://godoc.org/io#ReadWriter)。
+このような面倒なことを避けるためには、structを直接埋め込むことができます。埋め込まれた型のメソッドは自動的に続き、その意味は [bufio.ReadWriter](https://godoc.org/bufio#ReadWriter) は [bufio.Reader](https://godoc.org/bufio#Reader )と[bufio.Writer](https://godoc.org/bufio#Writer)のメソッドの両方を持つことになるという。同時に、次の3つのインターフェースを満たすこともできます：[io.Reader](https://godoc.org/io#Reader)、[io.Writer](https://godoc.org/io#Writer)、 io.ReadWriter](https://godoc.org/io#ReadWriter)。
 
 
-それでは、埋め込みがサブクラス化とは異なる重要な方法を見てみましょう。型を埋め込むと、その型のメソッドが外部型のメソッドになります。ただし、呼び出されたメソッドの受信機は内部型ではなく外部型ではありません。例では、[bufio.ReadWriter]（https：//godoc.org/bufio.ReadWriter）のReadメソッドが呼び出されたときに、転送メソッドを使用したのと同じ効果があります。レシーバーはReadWriterのリーダーフィールドであり、ReadWriter自体ではないのだ。
+それでは、埋め込みがサブクラス化とは異なる重要な方法を見てみましょう。型を埋め込むと、その型のメソッドが外部型のメソッドになります。ただし、呼び出されたメソッドの受信機は内部型ではなく外部型ではありません。例では、[bufio.ReadWriter](https：//godoc.org/bufio.ReadWriter)のReadメソッドが呼び出されたときに、転送メソッドを使用したのと同じ効果があります。レシーバーはReadWriterのリーダーフィールドであり、ReadWriter自体ではないのだ。
 
 
 埋め込みは単純な便利さでもあります。この例では、埋め込まれたフィールドを名前付きの通常のフィールドとともに表示します。

@@ -1,8 +1,8 @@
 {
   "name": "multi",
   "version": "1.0.0",
-  "repository": "git@github.com.work:leejongkyoo1984/multi.git",
-  "author": "leejongkyoo <jongkyoo20@gmail.com>",
+  "repository": "git@github.com:10antz-inc/developer-document.git",
+  "author": "leejongkyoo <j-lee@10antz.co.jp>",
   "license": "MIT",
   "scripts": {
     "build": "npx honkit build ./ ./honkit",
